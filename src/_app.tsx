@@ -1,14 +1,13 @@
-import { Button } from "@/components/ui/button"
-import { ThemeProvider } from "./components/theme-provider"
+import { ThemeProvider } from './components/theme-provider'
 
 import './index.css'
-import { HomePage } from "./app"
+import { RouterProvider } from 'react-router-dom'
+import { router } from './router'
 
 export function App() {
-  return (
-    <ThemeProvider>
-      <HomePage />
-    </ThemeProvider>
-    
-  )
+	return (
+		<ThemeProvider>
+			<RouterProvider router={router} />
+		</ThemeProvider>
+	)
 }
