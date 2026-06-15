@@ -1,13 +1,16 @@
-import { subDays } from 'date-fns'
-import { Search, X } from 'lucide-react'
+import { format, subDays } from 'date-fns'
+import { Search } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import type { DateRange } from 'react-day-picker'
+import { useSearchParams } from 'react-router-dom'
 import { DateRangePicker } from '@/components/date-range-picker'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 
 export function DetectionsTableFilters() {
-	const [dateRange, setDateRange] = useState<DateRange | undefined>({
+	const [_searchParams, setSearchParams] = useSearchParams()
+
+	const [dateRange, setDateRange] = useState<DateRange>({
 		from: subDays(new Date(), 7),
 		to: new Date(),
 	})
@@ -15,16 +18,18 @@ export function DetectionsTableFilters() {
 	function handleFilter(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault()
 
-		if (!dateRange?.from || !dateRange?.to) {
+		const { from, to } = dateRange
+
+		if (!from || !to) {
 			throw new Error('Date range not defined!')
 		}
 
-		const filters = {
-			min_timestamp: dateRange.from,
-			max_timestamp: dateRange.to,
-		}
+		setSearchParams((url) => {
+			url.set('start', format(from, 'yyyy-MM-dd'))
+			url.set('end', format(to, 'yyyy-MM-dd'))
 
-		console.log(filters)
+			return url
+		})
 	}
 
 	return (
@@ -38,11 +43,6 @@ export function DetectionsTableFilters() {
 					<Button type="submit" variant="secondary" className="gap-2">
 						<Search className="size-4" />
 						<span className="text-sm">Pesquisar</span>
-					</Button>
-
-					<Button type="button" variant="ghost" className="gap-2">
-						<X className="size-4" />
-						<span className="text-sm">Limpar filtros</span>
 					</Button>
 				</div>
 			</div>

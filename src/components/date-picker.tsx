@@ -1,26 +1,29 @@
 import { format } from 'date-fns'
-import * as React from 'react'
-
+import { ptBR } from 'date-fns/locale'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 
-export function DatePicker() {
-	const [date, setDate] = React.useState<Date>(new Date())
+interface DatePickerProps {
+	value: Date
+	onChange: (value: Date) => void
+}
 
+export function DatePicker({ value, onChange }: DatePickerProps) {
 	return (
 		<Popover>
 			<PopoverTrigger asChild>
 				<Button
 					variant="outline"
-					data-empty={!date}
 					className="w-70 justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
 				>
-					{date ? format(date, 'PPP') : <span>Pick a date</span>}
+					{format(value, 'PPP', {
+						locale: ptBR,
+					})}
 				</Button>
 			</PopoverTrigger>
 			<PopoverContent className="w-auto p-0">
-				<Calendar mode="single" required={true} selected={date} onSelect={setDate} />
+				<Calendar mode="single" required={true} selected={value} onSelect={onChange} />
 			</PopoverContent>
 		</Popover>
 	)

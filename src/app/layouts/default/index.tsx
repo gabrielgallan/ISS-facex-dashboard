@@ -3,12 +3,12 @@ import { Header } from '@/components/header'
 
 export function DefaultLayout() {
 	return (
-		<div className="flex min-h-screen flex-col antialiased">
+		<div className="flex flex-col min-h-screen antialiased">
 			<Header />
 
-			<div className="flex flex-1 flex-col p-6">
+			<main className="px-6">
 				<Outlet />
-			</div>
+			</main>
 		</div>
 	)
 }

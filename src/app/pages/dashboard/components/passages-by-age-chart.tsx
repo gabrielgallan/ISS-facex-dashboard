@@ -1,4 +1,12 @@
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts'
+import {
+	Bar,
+	BarChart,
+	type BarShapeProps,
+	CartesianGrid,
+	LabelList,
+	Rectangle,
+	XAxis,
+} from 'recharts'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -10,39 +18,75 @@ import {
 
 export const description = 'A stacked bar chart with a legend'
 
-const chartData = [
-	{ age: '0-17', passages: 32 },
-	{ age: '18-24', passages: 118 },
-	{ age: '25-34', passages: 186 },
-	{ age: '35-44', passages: 142 },
-	{ age: '45-54', passages: 84 },
-	{ age: '55+', passages: 46 },
-]
-
 const chartConfig = {
 	passages: {
 		label: 'Passagens',
-		color: 'var(--chart-1)',
+		color: 'var(--primary)',
 	},
 } satisfies ChartConfig
 
-export function PassagesByAgeChart() {
+interface ChartItem {
+	age: string
+	passages: number
+}
+
+interface PassagesByAgeChartProps {
+	data: ChartItem[]
+}
+
+function getHighestPassagesIndex(data: ChartItem[]) {
+	if (data.length === 0) {
+		return -1
+	}
+
+	return data.reduce((highestIndex, currentItem, currentIndex, array) => {
+		return currentItem.passages > array[highestIndex].passages ? currentIndex : highestIndex
+	}, 0)
+}
+
+export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
+	const activeIndex = getHighestPassagesIndex(data)
+
 	return (
-		<Card className="flex md:col-span-3 min-h-0 flex-col overflow-hidden">
+		<Card className="flex md:col-span-4 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
 				<CardTitle>Distribuição por faixa etária</CardTitle>
 				<CardDescription>Quantidade de detecções agrupadas por idade estimada.</CardDescription>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
-					<BarChart accessibilityLayer data={chartData}>
+					<BarChart accessibilityLayer data={data}>
 						<CartesianGrid vertical={false} />
 
 						<XAxis dataKey="age" tickMargin={10} tickLine={false} axisLine={false} />
 
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
 
-						<Bar dataKey="passages" fill="var(--color-passages)" radius={8}>
+						<Bar
+							dataKey="passages"
+							fill="var(--color-passages)"
+							radius={8}
+							shape={({ index, ...props }: BarShapeProps) =>
+								index === activeIndex ? (
+									<Rectangle
+										{...props}
+										fill="var(--color-passages)"
+										fillOpacity={1}
+										stroke="var(--foreground)"
+										strokeWidth={2}
+										strokeDasharray={4}
+										radius={8}
+									/>
+								) : (
+									<Rectangle
+										{...props}
+										fill="var(--color-passages)"
+										fillOpacity={0.45}
+										radius={8}
+									/>
+								)
+							}
+						>
 							<LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
 						</Bar>
 					</BarChart>

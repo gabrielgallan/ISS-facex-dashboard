@@ -8,21 +8,6 @@ import {
 	ChartTooltipContent,
 } from '@/components/ui/chart'
 
-const chartData = [
-	{ hour: '7h', female: 92, male: 74 },
-	{ hour: '8h', female: 128, male: 96 },
-	{ hour: '9h', female: 176, male: 132 },
-	{ hour: '10h', female: 98, male: 168 },
-	{ hour: '11h', female: 112, male: 182 },
-	{ hour: '12h', female: 236, male: 194 },
-	{ hour: '13h', female: 120, male: 269 },
-	{ hour: '14h', female: 221, male: 238 },
-	{ hour: '15h', female: 252, male: 231 },
-	{ hour: '16h', female: 258, male: 246 },
-	{ hour: '17h', female: 241, male: 223 },
-	{ hour: '18h', female: 196, male: 181 },
-]
-
 const chartConfig = {
 	male: {
 		label: 'Homen',
@@ -34,9 +19,19 @@ const chartConfig = {
 	},
 } satisfies ChartConfig
 
-export function PassagesByGenderChart() {
+interface ChartItem {
+	label: string
+	female: number
+	male: number
+}
+
+interface PassagesByGenderChartProps {
+	data: ChartItem[]
+}
+
+export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 	return (
-		<Card className="flex col-span-6 min-h-0 flex-col overflow-hidden">
+		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
 				<CardTitle>Fluxo de passagens por horário</CardTitle>
 				<CardDescription>
@@ -47,14 +42,14 @@ export function PassagesByGenderChart() {
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
 					<AreaChart
 						accessibilityLayer
-						data={chartData}
+						data={data}
 						margin={{
 							left: 12,
 							right: 12,
 						}}
 					>
 						<CartesianGrid vertical={false} />
-						<XAxis dataKey="hour" tickLine={false} axisLine={false} tickMargin={8} />
+						<XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
 
 						<ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 

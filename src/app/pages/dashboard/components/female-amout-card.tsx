@@ -1,7 +1,12 @@
 import { Venus } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-export function FemaleAmountCard() {
+interface FemaleAmountCardProps {
+	amount: number
+	percentOfTotal: number
+}
+
+export function FemaleAmountCard({ amount, percentOfTotal }: FemaleAmountCardProps) {
 	return (
 		<Card className="gap-4 border-rose-500/10 bg-linear-to-br from-card to-rose-500/5">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
@@ -17,13 +22,17 @@ export function FemaleAmountCard() {
 
 			<CardContent className="flex flex-col gap-3">
 				<div className="flex items-end gap-2">
-					<span className="text-3xl font-bold tracking-tight">148</span>
+					<span className="text-3xl font-bold tracking-tight">{amount}</span>
 					<span className="pb-1 text-sm text-muted-foreground">passagens</span>
 				</div>
 
 				<div className="flex items-center justify-between text-xs">
 					<span className="text-muted-foreground">Do total detectado</span>
-					<span className="font-medium text-rose-500">44%</span>
+					<span className="font-medium text-rose-500">
+						{percentOfTotal.toLocaleString('en-US', {
+							style: 'percent',
+						})}
+					</span>
 				</div>
 			</CardContent>
 		</Card>
