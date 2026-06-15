@@ -12,31 +12,31 @@ const chartData = [
 	{ hour: '7h', female: 92, male: 74 },
 	{ hour: '8h', female: 128, male: 96 },
 	{ hour: '9h', female: 176, male: 132 },
-	{ hour: '10h', female: 221, male: 168 },
-	{ hour: '11h', female: 248, male: 182 },
+	{ hour: '10h', female: 98, male: 168 },
+	{ hour: '11h', female: 112, male: 182 },
 	{ hour: '12h', female: 236, male: 194 },
-	{ hour: '13h', female: 214, male: 206 },
-	{ hour: '14h', female: 228, male: 218 },
+	{ hour: '13h', female: 120, male: 269 },
+	{ hour: '14h', female: 221, male: 238 },
 	{ hour: '15h', female: 252, male: 231 },
-	{ hour: '16h', female: 274, male: 246 },
+	{ hour: '16h', female: 258, male: 246 },
 	{ hour: '17h', female: 241, male: 223 },
 	{ hour: '18h', female: 196, male: 181 },
 ]
 
 const chartConfig = {
-	female: {
-		label: 'Homen',
-		color: '#086cdd',
-	},
 	male: {
+		label: 'Homen',
+		color: '#0370ec',
+	},
+	female: {
 		label: 'Mulher',
-		color: '#eb1656dd',
+		color: '#ee4088dd',
 	},
 } satisfies ChartConfig
 
 export function PassagesByGenderChart() {
 	return (
-		<Card className="flex h-full min-h-0 flex-col overflow-hidden">
+		<Card className="flex col-span-6 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
 				<CardTitle>Fluxo de passagens por horário</CardTitle>
 				<CardDescription>
