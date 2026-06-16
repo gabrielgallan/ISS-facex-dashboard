@@ -55,6 +55,7 @@ export function CameraFilter({ value, onValueChange }: CameraFilterProps) {
 
 			<DropdownMenuContent align="start" className="w-56">
 				<DropdownMenuLabel>Câmeras</DropdownMenuLabel>
+
 				<DropdownMenuSeparator />
 
 				{cameraOptions.map((camera) => (

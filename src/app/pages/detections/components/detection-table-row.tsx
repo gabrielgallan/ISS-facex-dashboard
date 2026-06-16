@@ -24,7 +24,7 @@ export function DetectionsTableRow({ detection }: DetectionsTableRowProps) {
 
 	const timestamp = parseISO(detection.timestamp)
 
-	const imageUrl = new URL(detection._links.detection_image, env.VITE_API_URL).toString()
+	const imageUrl = new URL(detection._links.detection_image, env.VITE_FACEX_API_URL).toString()
 
 	const age = Math.round(detection.demographics.age)
 

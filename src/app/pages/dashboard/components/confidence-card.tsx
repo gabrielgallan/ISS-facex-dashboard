@@ -1,4 +1,4 @@
-import { Check, Minus, TrendingDown, TrendingUp, X } from 'lucide-react'
+import { BadgeCheck, Minus, TrendingDown, TrendingUp, X } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface ConfidenceCardProps {
@@ -50,8 +50,8 @@ export function ConfidenceCard({ confidence }: ConfidenceCardProps) {
 					<p className="text-xs text-muted-foreground">Das detecções faciais</p>
 				</div>
 
-				<div className="rounded-xl p-2.5">
-					<Check className="size-5" />
+				<div className="rounded-xl p-2.5 bg-muted">
+					<BadgeCheck className="size-5" />
 				</div>
 			</CardHeader>
 

@@ -49,7 +49,14 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 						}}
 					>
 						<CartesianGrid vertical={false} />
-						<XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
+
+						<XAxis
+							dataKey="label"
+							tickLine={false}
+							axisLine={false}
+							tickMargin={8}
+							padding={{ left: 8, right: 8 }}
+						/>
 
 						<ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 
@@ -67,7 +74,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 
 						<Area
 							dataKey="male"
-							type="natural"
+							type="monotone"
 							fill="url(#fillmale)"
 							fillOpacity={0.4}
 							stroke="var(--color-male)"
@@ -75,7 +82,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 
 						<Area
 							dataKey="female"
-							type="natural"
+							type="monotone"
 							fill="url(#fillfemale)"
 							fillOpacity={0.4}
 							stroke="var(--color-female)"

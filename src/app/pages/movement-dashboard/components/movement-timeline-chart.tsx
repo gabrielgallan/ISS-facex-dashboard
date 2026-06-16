@@ -56,7 +56,13 @@ export function MovementTimelineChart({ data = mock }: MovementTimelineChartProp
 					>
 						<CartesianGrid vertical={false} />
 
-						<XAxis dataKey="label" tickLine={false} axisLine={false} tickMargin={8} />
+						<XAxis
+							dataKey="label"
+							tickLine={false}
+							axisLine={false}
+							tickMargin={8}
+							padding={{ left: 8, right: 8 }}
+						/>
 
 						<ChartTooltip cursor={false} content={<ChartTooltipContent />} />
 

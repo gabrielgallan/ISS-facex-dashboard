@@ -55,7 +55,13 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
-					<BarChart accessibilityLayer data={data}>
+					<BarChart
+						accessibilityLayer
+						data={data}
+						margin={{
+							top: 24,
+						}}
+					>
 						<CartesianGrid vertical={false} />
 
 						<XAxis dataKey="age" tickMargin={10} tickLine={false} axisLine={false} />
@@ -65,7 +71,6 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 						<Bar
 							dataKey="passages"
 							fill="var(--color-passages)"
-							radius={8}
 							shape={({ index, ...props }: BarShapeProps) =>
 								index === activeIndex ? (
 									<Rectangle

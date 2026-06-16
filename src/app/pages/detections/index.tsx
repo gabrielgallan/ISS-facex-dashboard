@@ -22,7 +22,7 @@ export function DetectionsPage() {
 	const pageIndex = searchParams.get('page')
 
 	const page = pageIndex ? Number(pageIndex) : 1
-	const limit = 5
+	const limit = 4
 	const offset = (page - 1) * limit
 
 	const { data: result } = useQuery({
@@ -47,7 +47,7 @@ export function DetectionsPage() {
 	}
 
 	return (
-		<div className="space-y-4 gap-4 py-4">
+		<div className="space-y-4 gap-4 p-4">
 			<DetectionsTableFilters />
 
 			<div className="overflow-hidden rounded-md border">

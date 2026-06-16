@@ -6,7 +6,7 @@ export function DefaultLayout() {
 		<div className="flex flex-col min-h-screen antialiased">
 			<Header />
 
-			<main className="px-6">
+			<main>
 				<Outlet />
 			</main>
 		</div>

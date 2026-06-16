@@ -6,7 +6,7 @@ function _sleep(ms: number) {
 }
 
 export const api = axios.create({
-	baseURL: env.VITE_API_URL,
+	baseURL: env.VITE_FACEX_API_URL,
 })
 
 // api.interceptors.request.use(async (config) => {

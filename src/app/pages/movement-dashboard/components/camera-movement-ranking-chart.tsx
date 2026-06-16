@@ -65,7 +65,11 @@ export function CameraMovementRankingChart() {
 
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
-					<PieChart>
+					<PieChart
+						margin={{
+							top: 24,
+						}}
+					>
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
 						<Pie
 							label
@@ -73,8 +77,8 @@ export function CameraMovementRankingChart() {
 							data={data}
 							dataKey="passages"
 							nameKey="cameraName"
-							outerRadius={140}
-							innerRadius={80}
+							outerRadius={110}
+							innerRadius={60}
 							stroke="var(--card)"
 							strokeWidth={5}
 							shape={({ index, outerRadius = 0, ...props }: PieSectorShapeProps) =>

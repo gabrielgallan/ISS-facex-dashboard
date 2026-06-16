@@ -63,14 +63,14 @@ export function DashboardPage() {
 	const min_timestamp = format(startOfDay(startDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
 	const max_timestamp = format(endOfDay(endDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
 
-	const cameraIds = searchParams.getAll('cameraId') ?? ['1']
+	const cameraIds = searchParams.getAll('cameraId')
 
 	const { data: result, isLoading } = useQuery({
 		queryKey: ['detections', view, min_timestamp, max_timestamp],
 		queryFn: () =>
 			listDetections({
 				body: {
-					feeds: cameraIds,
+					feeds: cameraIds.length > 0 ? cameraIds : ['1'],
 					min_timestamp,
 					max_timestamp,
 				},
@@ -83,7 +83,7 @@ export function DashboardPage() {
 	const { charts } = useDashboardCharts(result?.detections, view)
 
 	return (
-		<div className="space-y-4 py-4">
+		<div className="space-y-4 p-4">
 			<DashboardViewToggle />
 
 			{view === 'daily' && <DashboardDailyFilters />}
@@ -99,9 +99,9 @@ export function DashboardPage() {
 				) : (
 					<>
 						<DetectionsAmountCard amount={cards.detections.amount} activeCams={cameraIds.length} />
-						<ConfidenceCard confidence={cards.confidence.amount} />
 						<MaleAmountCard amount={cards.male.amount} percentOfTotal={cards.male.percent} />
 						<FemaleAmountCard amount={cards.female.amount} percentOfTotal={cards.female.percent} />
+						<ConfidenceCard confidence={cards.confidence.amount} />
 					</>
 				)}
 			</div>
