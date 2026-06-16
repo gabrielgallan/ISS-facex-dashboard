@@ -15,7 +15,7 @@ export function DatePicker({ value, onChange }: DatePickerProps) {
 			<PopoverTrigger asChild>
 				<Button
 					variant="outline"
-					className="w-70 justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
+					className="w-48 justify-start text-left font-normal data-[empty=true]:text-muted-foreground"
 				>
 					{format(value, 'PPP', {
 						locale: ptBR,

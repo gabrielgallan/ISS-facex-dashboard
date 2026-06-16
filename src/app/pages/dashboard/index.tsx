@@ -1,11 +1,21 @@
 import { useQuery } from '@tanstack/react-query'
-import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
+import {
+	endOfDay,
+	endOfMonth,
+	endOfWeek,
+	format,
+	parseISO,
+	startOfDay,
+	startOfMonth,
+	startOfWeek,
+} from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
 import { listDetections } from '@/api/list-detections'
 import { useDashboardCards } from '@/hooks/use-dashboard-cards'
 import { useDashboardCharts } from '@/hooks/use-dashboard-charts'
 import { ConfidenceCard } from './components/confidence-card'
-import { DashboardFilters } from './components/dashboard-filters'
+import { DashboardDailyFilters } from './components/dashboard-daily-filters'
+import { DashboardViewToggle } from './components/dashboard-view-toggle'
 import { DetectionsAmountCard } from './components/detections-amount-card'
 import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
@@ -14,22 +24,53 @@ import { PassagesByGenderChart } from './components/passages-by-gender-chart'
 import { ChartSkeleton } from './components/skeletons/chart-skeleton'
 import { MetricsCardSkeleton } from './components/skeletons/metrics-card-skeleton'
 
-export function DashbaordPage() {
+type DashboardViews = 'daily' | 'monthly' | 'weekly'
+
+const dashboardViews = ['daily', 'weekly', 'monthly'] as const
+
+function parseDashboardView(view: string | null): DashboardViews {
+	if (dashboardViews.includes(view as DashboardViews)) {
+		return view as DashboardViews
+	}
+
+	return 'daily'
+}
+
+export function DashboardPage() {
 	const [searchParams, _setSearchParams] = useSearchParams()
 
-	const date = searchParams.get('date') ?? format(new Date(), 'yyyy-MM-dd')
+	const view = parseDashboardView(searchParams.get('view'))
 
-	const dateISO = parseISO(date)
+	let start: string
+	let end: string
 
-	const min_timestamp = format(startOfDay(dateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
-	const max_timestamp = format(endOfDay(dateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
+	const now = new Date()
+
+	if (view === 'daily') {
+		start = searchParams.get('start') ?? format(now, 'yyyy-MM-dd')
+		end = searchParams.get('end') ?? format(now, 'yyyy-MM-dd')
+	} else if (view === 'weekly') {
+		start = format(startOfWeek(now), 'yyyy-MM-dd')
+		end = format(endOfWeek(now), 'yyyy-MM-dd')
+	} else {
+		start = format(startOfMonth(now), 'yyyy-MM-dd')
+		end = format(endOfMonth(now), 'yyyy-MM-dd')
+	}
+
+	const startDateISO = parseISO(start)
+	const endDateISO = parseISO(end)
+
+	const min_timestamp = format(startOfDay(startDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
+	const max_timestamp = format(endOfDay(endDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
+
+	const cameraIds = searchParams.getAll('cameraId') ?? ['1']
 
 	const { data: result, isLoading } = useQuery({
-		queryKey: ['detections', date],
+		queryKey: ['detections', view, min_timestamp, max_timestamp],
 		queryFn: () =>
 			listDetections({
 				body: {
-					feeds: ['1'],
+					feeds: cameraIds,
 					min_timestamp,
 					max_timestamp,
 				},
@@ -38,13 +79,14 @@ export function DashbaordPage() {
 	})
 
 	const { cards } = useDashboardCards(result?.detections)
-	const { charts } = useDashboardCharts(result?.detections)
+
+	const { charts } = useDashboardCharts(result?.detections, view)
 
 	return (
 		<div className="space-y-4 py-4">
-			<div>
-				<DashboardFilters />
-			</div>
+			<DashboardViewToggle />
+
+			{view === 'daily' && <DashboardDailyFilters />}
 
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (
@@ -56,7 +98,7 @@ export function DashbaordPage() {
 					</>
 				) : (
 					<>
-						<DetectionsAmountCard amount={cards.detections.amount} />
+						<DetectionsAmountCard amount={cards.detections.amount} activeCams={cameraIds.length} />
 						<ConfidenceCard confidence={cards.confidence.amount} />
 						<MaleAmountCard amount={cards.male.amount} percentOfTotal={cards.male.percent} />
 						<FemaleAmountCard amount={cards.female.amount} percentOfTotal={cards.female.percent} />

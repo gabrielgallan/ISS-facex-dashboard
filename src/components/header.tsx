@@ -1,5 +1,5 @@
-import securosLogo from '../../public/securos.svg'
-import { NavMenu } from './nav-manu'
+import securosLogo from '../assets/securos.svg'
+import { NavMenu } from './nav-menu'
 import { ThemeToggle } from './theme-toggle'
 import { Separator } from './ui/separator'
 

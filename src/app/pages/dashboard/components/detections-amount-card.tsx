@@ -3,9 +3,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface DetectionsAmountCardProps {
 	amount: number
+	activeCams: number
 }
 
-export function DetectionsAmountCard({ amount }: DetectionsAmountCardProps) {
+export function DetectionsAmountCard({ amount, activeCams }: DetectionsAmountCardProps) {
 	return (
 		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
@@ -27,7 +28,7 @@ export function DetectionsAmountCard({ amount }: DetectionsAmountCardProps) {
 
 				<div className="flex items-center justify-between text-xs">
 					<span className="text-muted-foreground">Câmeras monitoradas</span>
-					<span className="font-medium">1 ativa(s)</span>
+					<span className="font-medium">{activeCams} ativa(s)</span>
 				</div>
 			</CardContent>
 		</Card>

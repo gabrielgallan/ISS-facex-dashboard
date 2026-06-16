@@ -43,14 +43,14 @@ export function getConfidenceLabel(percent: number) {
 
 export function ConfidenceCard({ confidence }: ConfidenceCardProps) {
 	return (
-		<Card className="gap-4 border-emerald-500/10 bg-linear-to-br from-card to-emerald-500/5">
+		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
 				<div className="space-y-1">
 					<CardTitle className="text-base font-semibold">Confiança média</CardTitle>
 					<p className="text-xs text-muted-foreground">Das detecções faciais</p>
 				</div>
 
-				<div className="rounded-xl bg-emerald-500/10 p-2.5 text-emerald-500">
+				<div className="rounded-xl p-2.5">
 					<Check className="size-5" />
 				</div>
 			</CardHeader>
@@ -65,7 +65,7 @@ export function ConfidenceCard({ confidence }: ConfidenceCardProps) {
 
 				<div className="flex items-center justify-between text-xs">
 					<span className="text-muted-foreground">Baseada no score da API</span>
-					<span className="font-medium text-emerald-400">{getConfidenceLabel(confidence)}</span>
+					<span className="font-medium">{getConfidenceLabel(confidence)}</span>
 				</div>
 			</CardContent>
 		</Card>

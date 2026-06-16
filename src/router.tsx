@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import { DefaultLayout } from './app/layouts/default'
-import { DashbaordPage } from './app/pages/dashboard'
+import { DashboardPage } from './app/pages/dashboard'
 import { DetectionsPage } from './app/pages/detections'
+import { MovementDashboardPage } from './app/pages/movement-dashboard'
 
 export const router = createBrowserRouter([
 	{
@@ -10,7 +11,11 @@ export const router = createBrowserRouter([
 		children: [
 			{
 				path: 'dashboard',
-				element: <DashbaordPage />,
+				element: <DashboardPage />,
+			},
+			{
+				path: 'movement-dashboard',
+				element: <MovementDashboardPage />,
 			},
 			{
 				path: 'detections',

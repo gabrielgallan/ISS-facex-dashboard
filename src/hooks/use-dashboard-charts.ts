@@ -1,4 +1,4 @@
-import { getHours, isValid, parseISO } from 'date-fns'
+import { addDays, format, getHours, isValid, parseISO, startOfDay } from 'date-fns'
 import { useMemo } from 'react'
 import type { DetectionDTO } from '@/api/dto/list-detections-response.dto'
 
@@ -20,6 +20,8 @@ interface DashboardCharts {
 	}
 }
 
+type DashboardView = 'daily' | 'monthly' | 'weekly'
+
 const ageRanges = [
 	{ label: '0-17', min: 0, max: 17 },
 	{ label: '18-24', min: 18, max: 24 },
@@ -29,13 +31,21 @@ const ageRanges = [
 	{ label: '55+', min: 55, max: Number.POSITIVE_INFINITY },
 ] as const
 
-export function useDashboardCharts(detections?: DetectionDTO[]): DashboardCharts {
+function getEmptyGenderPassages(): Omit<GenderChartItem, 'label'> {
+	return { female: 0, male: 0 }
+}
+
+export function useDashboardCharts(
+	detections?: DetectionDTO[],
+	view: DashboardView = 'daily',
+): DashboardCharts {
 	return useMemo(() => {
 		const age = ageRanges.map(({ label }) => ({
 			age: label,
 			passages: 0,
 		}))
 		const passagesByHour = new Map<number, Omit<GenderChartItem, 'label'>>()
+		const passagesByDay = new Map<string, Omit<GenderChartItem, 'label'>>()
 
 		for (const detection of detections ?? []) {
 			const detectionAge = detection.demographics.age
@@ -63,7 +73,11 @@ export function useDashboardCharts(detections?: DetectionDTO[]): DashboardCharts
 			}
 
 			const hour = getHours(timestamp)
-			const passages = passagesByHour.get(hour) ?? { female: 0, male: 0 }
+			const day = format(startOfDay(timestamp), 'yyyy-MM-dd')
+			const passages =
+				view === 'daily'
+					? (passagesByHour.get(hour) ?? getEmptyGenderPassages())
+					: (passagesByDay.get(day) ?? getEmptyGenderPassages())
 
 			if (gender === 'MALE') {
 				passages.male += 1
@@ -71,23 +85,56 @@ export function useDashboardCharts(detections?: DetectionDTO[]): DashboardCharts
 				passages.female += 1
 			}
 
-			passagesByHour.set(hour, passages)
+			if (view === 'daily') {
+				passagesByHour.set(hour, passages)
+			} else {
+				passagesByDay.set(day, passages)
+			}
 		}
 
-		const hours = [...passagesByHour.keys()]
 		const gender: GenderChartItem[] = []
 
-		if (hours.length > 0) {
+		if (view === 'daily') {
+			const hours = [...passagesByHour.keys()]
+
+			if (hours.length === 0) {
+				return {
+					charts: {
+						age,
+						gender,
+					},
+				}
+			}
+
 			const firstHour = Math.min(...hours)
 			const lastHour = Math.max(...hours)
 
 			for (let hour = firstHour; hour <= lastHour; hour += 1) {
-				const passages = passagesByHour.get(hour) ?? { female: 0, male: 0 }
+				const passages = passagesByHour.get(hour) ?? getEmptyGenderPassages()
 
 				gender.push({
 					label: `${hour}h`,
 					...passages,
 				})
+			}
+		} else {
+			const days = [...passagesByDay.keys()].sort()
+
+			if (days.length > 0) {
+				let currentDay = parseISO(days[0])
+				const lastDay = parseISO(days.at(-1) ?? days[0])
+
+				while (currentDay <= lastDay) {
+					const dayKey = format(currentDay, 'yyyy-MM-dd')
+					const passages = passagesByDay.get(dayKey) ?? getEmptyGenderPassages()
+
+					gender.push({
+						label: format(currentDay, 'dd MMM'),
+						...passages,
+					})
+
+					currentDay = addDays(currentDay, 1)
+				}
 			}
 		}
 
@@ -97,5 +144,5 @@ export function useDashboardCharts(detections?: DetectionDTO[]): DashboardCharts
 				gender,
 			},
 		}
-	}, [detections])
+	}, [detections, view])
 }
