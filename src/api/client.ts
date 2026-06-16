@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { env } from '@/env'
 
-function _sleep(ms: number) {
+function sleep(ms: number) {
 	return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
@@ -9,8 +9,8 @@ export const api = axios.create({
 	baseURL: env.VITE_FACEX_API_URL,
 })
 
-// api.interceptors.request.use(async (config) => {
-// 	await sleep(3000)
+api.interceptors.request.use(async (config) => {
+	await sleep(200)
 
-// 	return config
-// })
+	return config
+})
