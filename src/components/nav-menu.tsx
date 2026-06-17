@@ -17,11 +17,11 @@ export function NavMenu() {
 					<NavigationMenuTrigger>Dashboards</NavigationMenuTrigger>
 					<NavigationMenuContent>
 						<ul className="w-94">
-							<ListItem href="/dashboard" title="Dashboard Demográfico">
+							<ListItem href="/dashboards/demographic" title="Dashboard Demográfico">
 								Visualize dados demográficos das detecções, como gênero, idade, horários de pico e
 								volume de passagens.
 							</ListItem>
-							<ListItem href="/movement-dashboard" title="Dashboard de Movimentacao">
+							<ListItem href="/dashboards/movement" title="Dashboard de Movimentacao">
 								Acompanhe fluxo por camera, areas de maior atividade e sinais operacionais de
 								atencao.
 							</ListItem>

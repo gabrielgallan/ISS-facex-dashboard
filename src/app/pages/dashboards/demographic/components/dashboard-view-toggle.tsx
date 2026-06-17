@@ -5,7 +5,7 @@ import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 const dashboardViews = [
 	{
 		value: 'daily',
-		label: 'Diária',
+		label: 'Diário',
 	},
 	{
 		value: 'weekly',
@@ -39,7 +39,7 @@ export function DashboardViewToggle() {
 
 	return (
 		<div className="flex items-center gap-2">
-			<Label className="text-xs">Frequência</Label>
+			<Label className="text-xs">Período</Label>
 
 			<ToggleGroup
 				type="single"

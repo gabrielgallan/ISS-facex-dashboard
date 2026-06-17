@@ -11,7 +11,7 @@ export function FemaleAmountCard({ amount, percentOfTotal }: FemaleAmountCardPro
 		<Card className="gap-4 border-rose-500/10 bg-linear-to-br from-card to-rose-500/5">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
 				<div className="space-y-1">
-					<CardTitle className="text-base font-semibold">Mulheres</CardTitle>
+					<CardTitle className="text-base font-semibold">Total de mulheres</CardTitle>
 					<p className="text-xs text-muted-foreground">Gênero estimado</p>
 				</div>
 

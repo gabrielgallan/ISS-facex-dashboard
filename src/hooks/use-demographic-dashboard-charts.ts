@@ -13,7 +13,7 @@ interface GenderChartItem {
 	male: number
 }
 
-interface DashboardCharts {
+interface DemographicDashboardCharts {
 	charts: {
 		age: AgeChartItem[]
 		gender: GenderChartItem[]
@@ -21,6 +21,11 @@ interface DashboardCharts {
 }
 
 type DashboardView = 'daily' | 'monthly' | 'weekly'
+
+interface DashboardChartInterval {
+	startDate: Date
+	endDate: Date
+}
 
 const ageRanges = [
 	{ label: '0-17', min: 0, max: 17 },
@@ -35,10 +40,11 @@ function getEmptyGenderPassages(): Omit<GenderChartItem, 'label'> {
 	return { female: 0, male: 0 }
 }
 
-export function useDashboardCharts(
-	detections?: DetectionDTO[],
-	view: DashboardView = 'daily',
-): DashboardCharts {
+export function useDemographicDashboardCharts(
+	detections: DetectionDTO[] | undefined,
+	view: DashboardView,
+	interval: DashboardChartInterval
+): DemographicDashboardCharts {
 	return useMemo(() => {
 		const age = ageRanges.map(({ label }) => ({
 			age: label,
@@ -52,7 +58,7 @@ export function useDashboardCharts(
 
 			if (Number.isFinite(detectionAge) && detectionAge >= 0) {
 				const rangeIndex = ageRanges.findIndex(
-					({ min, max }) => detectionAge >= min && detectionAge <= max,
+					({ min, max }) => detectionAge >= min && detectionAge <= max
 				)
 
 				if (rangeIndex >= 0) {
@@ -95,21 +101,7 @@ export function useDashboardCharts(
 		const gender: GenderChartItem[] = []
 
 		if (view === 'daily') {
-			const hours = [...passagesByHour.keys()]
-
-			if (hours.length === 0) {
-				return {
-					charts: {
-						age,
-						gender,
-					},
-				}
-			}
-
-			const firstHour = Math.min(...hours)
-			const lastHour = Math.max(...hours)
-
-			for (let hour = firstHour; hour <= lastHour; hour += 1) {
+			for (let hour = 0; hour <= 23; hour += 1) {
 				const passages = passagesByHour.get(hour) ?? getEmptyGenderPassages()
 
 				gender.push({
@@ -118,23 +110,19 @@ export function useDashboardCharts(
 				})
 			}
 		} else {
-			const days = [...passagesByDay.keys()].sort()
+			let currentDay = startOfDay(interval.startDate)
+			const lastDay = startOfDay(interval.endDate)
 
-			if (days.length > 0) {
-				let currentDay = parseISO(days[0])
-				const lastDay = parseISO(days.at(-1) ?? days[0])
+			while (currentDay <= lastDay) {
+				const dayKey = format(currentDay, 'yyyy-MM-dd')
+				const passages = passagesByDay.get(dayKey) ?? getEmptyGenderPassages()
 
-				while (currentDay <= lastDay) {
-					const dayKey = format(currentDay, 'yyyy-MM-dd')
-					const passages = passagesByDay.get(dayKey) ?? getEmptyGenderPassages()
+				gender.push({
+					label: format(currentDay, 'dd MMM'),
+					...passages,
+				})
 
-					gender.push({
-						label: format(currentDay, 'dd MMM'),
-						...passages,
-					})
-
-					currentDay = addDays(currentDay, 1)
-				}
+				currentDay = addDays(currentDay, 1)
 			}
 		}
 
@@ -144,5 +132,5 @@ export function useDashboardCharts(
 				gender,
 			},
 		}
-	}, [detections, view])
+	}, [detections, view, interval.startDate, interval.endDate])
 }

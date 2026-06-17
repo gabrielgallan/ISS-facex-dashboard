@@ -33,7 +33,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
-				<CardTitle>Fluxo de passagens por horário</CardTitle>
+				<CardTitle>Fluxo de passagens por gênero</CardTitle>
 				<CardDescription>
 					Tendência de detecções masculinas e femininas ao longo do dia.
 				</CardDescription>

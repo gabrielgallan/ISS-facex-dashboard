@@ -11,8 +11,10 @@ import {
 } from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
 import { listDetections } from '@/api/list-detections'
-import { useDashboardCards } from '@/hooks/use-dashboard-cards'
-import { useDashboardCharts } from '@/hooks/use-dashboard-charts'
+import { CardSkeleton } from '@/components/skeletons/card-skeleton'
+import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
+import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
+import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { ConfidenceCard } from './components/confidence-card'
 import { DashboardDailyFilters } from './components/dashboard-daily-filters'
 import { DashboardViewToggle } from './components/dashboard-view-toggle'
@@ -21,25 +23,13 @@ import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
-import { ChartSkeleton } from './components/skeletons/chart-skeleton'
-import { MetricsCardSkeleton } from './components/skeletons/metrics-card-skeleton'
 
 type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
-const dashboardViews = ['daily', 'weekly', 'monthly'] as const
-
-function parseDashboardView(view: string | null): DashboardViews {
-	if (dashboardViews.includes(view as DashboardViews)) {
-		return view as DashboardViews
-	}
-
-	return 'daily'
-}
-
-export function DashboardPage() {
+export function DemographicDashboardPage() {
 	const [searchParams, _setSearchParams] = useSearchParams()
 
-	const view = parseDashboardView(searchParams.get('view'))
+	const view = (searchParams.get('view') as DashboardViews) ?? 'daily'
 
 	let start: string
 	let end: string
@@ -78,9 +68,12 @@ export function DashboardPage() {
 			}),
 	})
 
-	const { cards } = useDashboardCards(result?.detections)
+	const { cards } = useDemographicDashboardCards(result?.detections)
 
-	const { charts } = useDashboardCharts(result?.detections, view)
+	const { charts } = useDemographicDashboardCharts(result?.detections, view, {
+		startDate: startDateISO,
+		endDate: endDateISO,
+	})
 
 	return (
 		<div className="space-y-4 p-4">
@@ -91,16 +84,22 @@ export function DashboardPage() {
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (
 					<>
-						<MetricsCardSkeleton />
-						<MetricsCardSkeleton />
-						<MetricsCardSkeleton />
-						<MetricsCardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
+						<CardSkeleton />
 					</>
 				) : (
 					<>
-						<DetectionsAmountCard amount={cards.detections.amount} activeCams={cameraIds.length} />
+						<DetectionsAmountCard
+							amount={cards.detections.amount}
+							activeCams={cameraIds.length}
+						/>
 						<MaleAmountCard amount={cards.male.amount} percentOfTotal={cards.male.percent} />
-						<FemaleAmountCard amount={cards.female.amount} percentOfTotal={cards.female.percent} />
+						<FemaleAmountCard
+							amount={cards.female.amount}
+							percentOfTotal={cards.female.percent}
+						/>
 						<ConfidenceCard confidence={cards.confidence.amount} />
 					</>
 				)}

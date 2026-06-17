@@ -6,7 +6,7 @@ interface CardMetric {
 	percent: number
 }
 
-interface DashboardCards {
+interface DemographicDashboardCards {
 	cards: {
 		detections: Pick<CardMetric, 'amount'>
 		confidence: Pick<CardMetric, 'amount'>
@@ -19,7 +19,9 @@ function isGender(value: GenderDTO): value is 'MALE' | 'FEMALE' {
 	return value === 'MALE' || value === 'FEMALE'
 }
 
-export function useDashboardCards(detections?: DetectionDTO[]): DashboardCards {
+export function useDemographicDashboardCards(
+	detections?: DetectionDTO[]
+): DemographicDashboardCards {
 	return useMemo(() => {
 		const list = detections ?? []
 		const total = list.length

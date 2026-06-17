@@ -34,7 +34,7 @@ export type HairTypeDTO = 'NORMAL' | 'HIGH_TEMPLE' | 'BALD' | 'UNKNOWN'
 
 export type HeadwearDTO = 'YES' | 'NO' | 'UNKNOWN'
 
-export type DetectionEmotionDTO = unknown
+export type DetectionEmotionDTO = 'ANGER' | 'SADNESS' | 'FEAR' | 'UNKNOWN'
 
 export type DetectionLivenessDTO = unknown
 
