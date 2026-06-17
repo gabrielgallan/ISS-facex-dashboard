@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
-import { listDetections } from '@/api/list-detections'
+import { listDetections } from '@/api/facex/list-detections'
 import { Pagination } from '@/components/pagination'
 import { Table, TableBody, TableHead, TableHeader, TableRow } from '@/components/ui/table'
 import { DetectionsTableRow } from './components/detection-table-row'
@@ -76,7 +76,7 @@ export function DetectionsPage() {
 				<Pagination
 					onPageChange={handlePaginate}
 					page={page}
-					limit={10}
+					limit={limit}
 					total={result._pagination.total_records}
 				/>
 			)}

@@ -19,15 +19,13 @@ interface CameraMovementRankingItem {
 	passages: number
 }
 
+interface CameraMovementRankingChartProps {
+	data: CameraMovementRankingItem[]
+}
+
 type CameraMovementRankingChartItem = CameraMovementRankingItem & {
 	fill: string
 }
-
-const cameraMovementRanking: CameraMovementRankingItem[] = [
-	{ cameraName: 'Câmera 1', passages: 742 },
-	{ cameraName: 'Câmera 2', passages: 618 },
-	{ cameraName: 'Câmera 3', passages: 482 },
-]
 
 function getActiveIndex(data: CameraMovementRankingItem[]) {
 	if (data.length === 0) {
@@ -49,9 +47,9 @@ function getPrimaryFill(index: number, activeIndex: number) {
 	return `color-mix(in oklch, var(--primary) ${primaryAmount}%, transparent)`
 }
 
-export function CameraMovementRankingChart() {
-	const activeIndex = getActiveIndex(cameraMovementRanking)
-	const data: CameraMovementRankingChartItem[] = cameraMovementRanking.map((camera, index) => ({
+export function CameraMovementRankingChart({ data: ranking }: CameraMovementRankingChartProps) {
+	const activeIndex = getActiveIndex(ranking)
+	const data: CameraMovementRankingChartItem[] = ranking.map((camera, index) => ({
 		...camera,
 		fill: getPrimaryFill(index, activeIndex),
 	}))

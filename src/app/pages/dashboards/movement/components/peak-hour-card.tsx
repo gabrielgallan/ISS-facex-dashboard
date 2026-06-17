@@ -2,11 +2,11 @@ import { TrendingUp } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface PeakHourCardProps {
-	hour?: string
-	passages?: number
+	hour: string
+	passages: number
 }
 
-export function PeakHourCard({ hour = '12:00', passages = 742 }: PeakHourCardProps) {
+export function PeakHourCard({ hour, passages }: PeakHourCardProps) {
 	return (
 		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">

@@ -1,5 +1,4 @@
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -21,23 +20,10 @@ interface ChartItem {
 }
 
 interface MovementTimelineChartProps {
-	data?: ChartItem[]
+	data: ChartItem[]
 }
 
-const mock = [
-	{ label: '08:00', passages: 96 },
-	{ label: '09:00', passages: 132 },
-	{ label: '10:00', passages: 178 },
-	{ label: '11:00', passages: 214 },
-	{ label: '12:00', passages: 286 },
-	{ label: '13:00', passages: 241 },
-	{ label: '14:00', passages: 203 },
-	{ label: '15:00', passages: 186 },
-	{ label: '16:00', passages: 171 },
-	{ label: '17:00', passages: 135 },
-]
-
-export function MovementTimelineChart({ data = mock }: MovementTimelineChartProps) {
+export function MovementTimelineChart({ data }: MovementTimelineChartProps) {
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>

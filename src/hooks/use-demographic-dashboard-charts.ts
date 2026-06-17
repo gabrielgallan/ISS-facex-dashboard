@@ -1,6 +1,6 @@
-import { addDays, format, getHours, isValid, parseISO, startOfDay } from 'date-fns'
+import { addDays, format, getDay, getHours, isValid, parseISO, startOfDay } from 'date-fns'
 import { useMemo } from 'react'
-import type { DetectionDTO } from '@/api/dto/list-detections-response.dto'
+import type { DetectionDTO } from '@/api/facex/dto/list-detections-response.dto'
 
 interface AgeChartItem {
 	age: string
@@ -36,8 +36,18 @@ const ageRanges = [
 	{ label: '55+', min: 55, max: Number.POSITIVE_INFINITY },
 ] as const
 
+const weekDayLabels = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
+
 function getEmptyGenderPassages(): Omit<GenderChartItem, 'label'> {
 	return { female: 0, male: 0 }
+}
+
+function getDayLabel(date: Date, view: Exclude<DashboardView, 'daily'>) {
+	if (view === 'weekly') {
+		return weekDayLabels[getDay(date)]
+	}
+
+	return format(date, 'dd MMM')
 }
 
 export function useDemographicDashboardCharts(
@@ -118,7 +128,7 @@ export function useDemographicDashboardCharts(
 				const passages = passagesByDay.get(dayKey) ?? getEmptyGenderPassages()
 
 				gender.push({
-					label: format(currentDay, 'dd MMM'),
+					label: getDayLabel(currentDay, view),
 					...passages,
 				})
 

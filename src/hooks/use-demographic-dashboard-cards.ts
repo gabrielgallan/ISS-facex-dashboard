@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import type { DetectionDTO, GenderDTO } from '@/api/dto/list-detections-response.dto'
+import type { DetectionDTO, GenderDTO } from '@/api/facex/dto/list-detections-response.dto'
 
 interface CardMetric {
 	amount: number

@@ -2,10 +2,10 @@ import { TriangleAlert } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface NoMatchRateCardProps {
-	percent?: number
+	percent: number
 }
 
-export function NoMatchRateCard({ percent = 0.18 }: NoMatchRateCardProps) {
+export function NoMatchRateCard({ percent }: NoMatchRateCardProps) {
 	return (
 		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">

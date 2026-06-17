@@ -2,6 +2,8 @@ import { format, parseISO } from 'date-fns'
 import { ChartArea } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
+import { getCameras } from '@/api/server/get-cameras'
 import { CameraFilter } from '@/components/camera-filter'
 import { DatePicker } from '@/components/date-picker'
 import { Button } from '@/components/ui/button'
@@ -10,8 +12,14 @@ import { Label } from '@/components/ui/label'
 export function DashboardDailyFilters() {
 	const [searchParams, setSearchParams] = useSearchParams()
 
+	const { data: cameras, isLoading: isLoadingCameras } = useQuery({
+		queryKey: ['cameras'],
+		queryFn: () => getCameras(),
+	})
+
 	const initialDateValue = searchParams.get('date') ?? format(new Date(), 'yyyy-MM-dd')
-	const initialCameraIds = searchParams.getAll('cameraIds')
+	const initialCameraIds = searchParams.getAll('cameraId')
+	const cameraOptions = cameras?.map(({ id, name }) => ({ id, name })) ?? []
 
 	const dateISO = parseISO(initialDateValue)
 
@@ -42,7 +50,12 @@ export function DashboardDailyFilters() {
 				<div className="md:flex grid gap-2">
 					<DatePicker value={date} onChange={setDate} />
 
-					<CameraFilter value={cameraIds} onValueChange={setCameraIds} />
+					<CameraFilter
+						options={cameraOptions}
+						value={cameraIds}
+						onValueChange={setCameraIds}
+						isLoading={isLoadingCameras}
+					/>
 
 					<Button type="submit" variant="secondary" className="gap-2">
 						<ChartArea className="size-4" />

@@ -2,7 +2,7 @@ import { format, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 import { ScanFace } from 'lucide-react'
 import { useState } from 'react'
-import type { DetectionDTO } from '@/api/dto/list-detections-response.dto'
+import type { DetectionDTO } from '@/api/facex/dto/list-detections-response.dto'
 import { TableCell, TableRow } from '@/components/ui/table'
 import { env } from '@/env'
 import {

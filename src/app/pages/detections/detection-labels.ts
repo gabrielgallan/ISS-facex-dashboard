@@ -6,7 +6,7 @@ import type {
 	HairColorDTO,
 	HairTypeDTO,
 	HeadwearDTO,
-} from '@/api/dto/list-detections-response.dto'
+} from '@/api/facex/dto/list-detections-response.dto'
 
 export const genderLabels: Record<GenderDTO, string> = {
 	MALE: 'Masculino',

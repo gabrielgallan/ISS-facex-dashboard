@@ -1,20 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import {
-	endOfDay,
-	endOfMonth,
-	endOfWeek,
-	format,
-	parseISO,
-	startOfDay,
-	startOfMonth,
-	startOfWeek,
-} from 'date-fns'
+import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
-import { listDetections } from '@/api/list-detections'
+import { listDetections } from '@/api/facex/list-detections'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
 import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
+import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
 import { ConfidenceCard } from './components/confidence-card'
 import { DashboardDailyFilters } from './components/dashboard-daily-filters'
 import { DashboardViewToggle } from './components/dashboard-view-toggle'
@@ -23,29 +15,16 @@ import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
+import { getCameras } from '@/api/server/get-cameras'
 
-type DashboardViews = 'daily' | 'monthly' | 'weekly'
+export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
 export function DemographicDashboardPage() {
 	const [searchParams, _setSearchParams] = useSearchParams()
 
 	const view = (searchParams.get('view') as DashboardViews) ?? 'daily'
 
-	let start: string
-	let end: string
-
-	const now = new Date()
-
-	if (view === 'daily') {
-		start = searchParams.get('start') ?? format(now, 'yyyy-MM-dd')
-		end = searchParams.get('end') ?? format(now, 'yyyy-MM-dd')
-	} else if (view === 'weekly') {
-		start = format(startOfWeek(now), 'yyyy-MM-dd')
-		end = format(endOfWeek(now), 'yyyy-MM-dd')
-	} else {
-		start = format(startOfMonth(now), 'yyyy-MM-dd')
-		end = format(endOfMonth(now), 'yyyy-MM-dd')
-	}
+	const { start, end } = formatDashboardDateRange(view, searchParams)
 
 	const startDateISO = parseISO(start)
 	const endDateISO = parseISO(end)
@@ -53,20 +32,37 @@ export function DemographicDashboardPage() {
 	const min_timestamp = format(startOfDay(startDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
 	const max_timestamp = format(endOfDay(endDateISO), "yyyy-MM-dd'T'HH:mm:ssxxx")
 
-	const cameraIds = searchParams.getAll('cameraId')
+	const selectedCameraIds = searchParams.getAll('cameraId')
 
-	const { data: result, isLoading } = useQuery({
-		queryKey: ['detections', view, min_timestamp, max_timestamp],
+	const { data: cameras, isLoading: isLoadingCameras, isFetching: isFetchingCameras } = useQuery({
+		queryKey: ['cameras'],
+		queryFn: getCameras,
+		enabled: selectedCameraIds.length === 0,
+	})
+
+	const cameraIds =
+		selectedCameraIds.length > 0
+			? selectedCameraIds
+			: cameras?.map((camera) => camera.id) ?? []
+
+	const canFetchDetections =
+		selectedCameraIds.length > 0 || (!isLoadingCameras && !isFetchingCameras && cameraIds.length > 0)
+
+	const { data: result, isLoading: isLoadingDetections } = useQuery({
+		queryKey: ['detections', min_timestamp, max_timestamp, cameraIds.join(','), view],
 		queryFn: () =>
 			listDetections({
 				body: {
-					feeds: cameraIds.length > 0 ? cameraIds : ['1'],
+					feeds: cameraIds,
 					min_timestamp,
 					max_timestamp,
 				},
-				params: { limit: 1000, offset: 0 },
+				params: { limit: 10000, offset: 0 },
 			}),
+		enabled: canFetchDetections
 	})
+
+	const isLoading = isLoadingCameras || isLoadingDetections
 
 	const { cards } = useDemographicDashboardCards(result?.detections)
 
@@ -81,6 +77,19 @@ export function DemographicDashboardPage() {
 
 			{view === 'daily' && <DashboardDailyFilters />}
 
+			{/* <div className="text-xs flex justify-end">
+				<div>
+					<span>Dados análisados entre</span>{' '}
+					<span className="font-semibold">
+						{format(startDateISO, 'dd MMM yyyy', { locale: ptBR })}
+					</span>{' '}
+					-{' '}
+					<span className="font-semibold">
+						{format(endDateISO, 'dd MMM yyyy', { locale: ptBR })}
+					</span>
+				</div>
+			</div> */}
+
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (
 					<>
@@ -91,15 +100,9 @@ export function DemographicDashboardPage() {
 					</>
 				) : (
 					<>
-						<DetectionsAmountCard
-							amount={cards.detections.amount}
-							activeCams={cameraIds.length}
-						/>
+						<DetectionsAmountCard amount={cards.detections.amount} activeCams={cameraIds.length} />
 						<MaleAmountCard amount={cards.male.amount} percentOfTotal={cards.male.percent} />
-						<FemaleAmountCard
-							amount={cards.female.amount}
-							percentOfTotal={cards.female.percent}
-						/>
+						<FemaleAmountCard amount={cards.female.amount} percentOfTotal={cards.female.percent} />
 						<ConfidenceCard confidence={cards.confidence.amount} />
 					</>
 				)}

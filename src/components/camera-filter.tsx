@@ -10,31 +10,27 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 interface CameraOption {
+	id: string
 	name: string
-	value: string
 }
 
 interface CameraFilterProps {
+	options: CameraOption[]
 	value?: string[]
 	onValueChange?: (value: string[]) => void
+	isLoading?: boolean
 }
 
-const cameraOptions: CameraOption[] = [
-	{ name: 'Câmera 1', value: '1' },
-	{ name: 'Câmera 2', value: '2' },
-	{ name: 'Câmera 3', value: '3' },
-]
-
-export function CameraFilter({ value, onValueChange }: CameraFilterProps) {
+export function CameraFilter({ options, value, onValueChange, isLoading }: CameraFilterProps) {
 	const [internalValue, setInternalValue] = useState<string[]>([])
 
 	const selectedValues = value ?? internalValue
-	const selectedCameras = cameraOptions.filter((camera) => selectedValues.includes(camera.value))
+	const selectedCameras = options.filter((camera) => selectedValues.includes(camera.id))
 
-	function handleCheckedChange(cameraValue: string, checked: boolean) {
+	function handleCheckedChange(cameraId: string, checked: boolean) {
 		const nextValue = checked
-			? [...new Set([...selectedValues, cameraValue])]
-			: selectedValues.filter((value) => value !== cameraValue)
+			? [...new Set([...selectedValues, cameraId])]
+			: selectedValues.filter((value) => value !== cameraId)
 
 		setInternalValue(nextValue)
 		onValueChange?.(nextValue)
@@ -58,16 +54,29 @@ export function CameraFilter({ value, onValueChange }: CameraFilterProps) {
 
 				<DropdownMenuSeparator />
 
-				{cameraOptions.map((camera) => (
-					<DropdownMenuCheckboxItem
-						key={camera.value}
-						checked={selectedValues.includes(camera.value)}
-						onCheckedChange={(checked) => handleCheckedChange(camera.value, checked)}
-						onSelect={(event) => event.preventDefault()}
-					>
-						{camera.name}
+				{isLoading && (
+					<DropdownMenuCheckboxItem disabled checked={false}>
+						Carregando câmeras...
 					</DropdownMenuCheckboxItem>
-				))}
+				)}
+
+				{!isLoading && options.length === 0 && (
+					<DropdownMenuCheckboxItem disabled checked={false}>
+						Nenhuma câmera disponível
+					</DropdownMenuCheckboxItem>
+				)}
+
+				{!isLoading &&
+					options.map((camera) => (
+						<DropdownMenuCheckboxItem
+							key={camera.id}
+							checked={selectedValues.includes(camera.id)}
+							onCheckedChange={(checked) => handleCheckedChange(camera.id, checked)}
+							onSelect={(event) => event.preventDefault()}
+						>
+							{camera.name}
+						</DropdownMenuCheckboxItem>
+					))}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)

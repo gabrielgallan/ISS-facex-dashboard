@@ -2,10 +2,10 @@ import { RadarIcon } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface MovementAmountCardProps {
-	amount?: number
+	amount: number
 }
 
-export function MovementAmountCard({ amount = 1844 }: MovementAmountCardProps) {
+export function MovementAmountCard({ amount }: MovementAmountCardProps) {
 	return (
 		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
