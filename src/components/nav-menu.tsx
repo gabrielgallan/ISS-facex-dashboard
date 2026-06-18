@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import {
 	NavigationMenu,
 	NavigationMenuContent,
@@ -10,20 +11,26 @@ import {
 } from '@/components/ui/navigation-menu'
 
 export function NavMenu() {
+	const { t } = useTranslation()
+
 	return (
 		<NavigationMenu>
 			<NavigationMenuList className="flex gap-2">
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>Dashboards</NavigationMenuTrigger>
+					<NavigationMenuTrigger>{t('navigation.dashboards')}</NavigationMenuTrigger>
 					<NavigationMenuContent>
 						<ul className="w-94">
-							<ListItem href="/dashboards/demographic" title="Dashboard Demográfico">
-								Visualize dados demográficos das detecções, como gênero, idade, horários de pico e
-								volume de passagens.
+							<ListItem
+								href="/dashboards/demographic"
+								title={t('navigation.demographic.title')}
+							>
+								{t('navigation.demographic.description')}
 							</ListItem>
-							<ListItem href="/dashboards/movement" title="Dashboard de Movimentacao">
-								Acompanhe fluxo por camera, areas de maior atividade e sinais operacionais de
-								atencao.
+							<ListItem
+								href="/dashboards/movement"
+								title={t('navigation.movement.title')}
+							>
+								{t('navigation.movement.description')}
 							</ListItem>
 						</ul>
 					</NavigationMenuContent>
@@ -31,7 +38,7 @@ export function NavMenu() {
 				<NavigationMenuItem>
 					<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
 						<Link to="/detections">
-							<span>Histórico de Detecções</span>
+							<span>{t('navigation.detections_history')}</span>
 						</Link>
 					</NavigationMenuLink>
 				</NavigationMenuItem>

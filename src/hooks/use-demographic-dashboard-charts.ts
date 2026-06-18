@@ -1,6 +1,8 @@
-import { addDays, format, getDay, getHours, isValid, parseISO, startOfDay } from 'date-fns'
+import { addDays, format, getHours, isValid, parseISO, startOfDay } from 'date-fns'
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { DetectionDTO } from '@/api/facex/dto/list-detections-response.dto'
+import { getLocaleModules } from '@/utils/get-locale-modules'
 
 interface AgeChartItem {
 	age: string
@@ -36,18 +38,20 @@ const ageRanges = [
 	{ label: '55+', min: 55, max: Number.POSITIVE_INFINITY },
 ] as const
 
-const weekDayLabels = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb']
-
 function getEmptyGenderPassages(): Omit<GenderChartItem, 'label'> {
 	return { female: 0, male: 0 }
 }
 
-function getDayLabel(date: Date, view: Exclude<DashboardView, 'daily'>) {
+function getDayLabel(
+	date: Date,
+	view: Exclude<DashboardView, 'daily'>,
+	locale: ReturnType<typeof getLocaleModules>['dateFns']
+) {
 	if (view === 'weekly') {
-		return weekDayLabels[getDay(date)]
+		return format(date, 'EEE', { locale })
 	}
 
-	return format(date, 'dd MMM')
+	return format(date, 'dd MMM', { locale })
 }
 
 export function useDemographicDashboardCharts(
@@ -55,6 +59,10 @@ export function useDemographicDashboardCharts(
 	view: DashboardView,
 	interval: DashboardChartInterval
 ): DemographicDashboardCharts {
+	const { i18n } = useTranslation()
+	const language = i18n.resolvedLanguage ?? i18n.language
+	const { dateFns } = getLocaleModules(language)
+
 	return useMemo(() => {
 		const age = ageRanges.map(({ label }) => ({
 			age: label,
@@ -128,7 +136,7 @@ export function useDemographicDashboardCharts(
 				const passages = passagesByDay.get(dayKey) ?? getEmptyGenderPassages()
 
 				gender.push({
-					label: getDayLabel(currentDay, view),
+					label: getDayLabel(currentDay, view, dateFns),
 					...passages,
 				})
 
@@ -142,5 +150,5 @@ export function useDemographicDashboardCharts(
 				gender,
 			},
 		}
-	}, [detections, view, interval.startDate, interval.endDate])
+	}, [detections, view, interval.startDate, interval.endDate, language, dateFns])
 }

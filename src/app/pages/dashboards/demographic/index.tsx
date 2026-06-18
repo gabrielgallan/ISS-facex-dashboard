@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
 import { listDetections } from '@/api/facex/list-detections'
+import { getCameras } from '@/api/server/get-cameras'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
 import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
@@ -15,7 +16,6 @@ import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
-import { getCameras } from '@/api/server/get-cameras'
 
 export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
@@ -34,19 +34,22 @@ export function DemographicDashboardPage() {
 
 	const selectedCameraIds = searchParams.getAll('cameraId')
 
-	const { data: cameras, isLoading: isLoadingCameras, isFetching: isFetchingCameras } = useQuery({
+	const {
+		data: cameras,
+		isLoading: isLoadingCameras,
+		isFetching: isFetchingCameras,
+	} = useQuery({
 		queryKey: ['cameras'],
 		queryFn: getCameras,
 		enabled: selectedCameraIds.length === 0,
 	})
 
 	const cameraIds =
-		selectedCameraIds.length > 0
-			? selectedCameraIds
-			: cameras?.map((camera) => camera.id) ?? []
+		selectedCameraIds.length > 0 ? selectedCameraIds : (cameras?.map((camera) => camera.id) ?? [])
 
 	const canFetchDetections =
-		selectedCameraIds.length > 0 || (!isLoadingCameras && !isFetchingCameras && cameraIds.length > 0)
+		selectedCameraIds.length > 0 ||
+		(!isLoadingCameras && !isFetchingCameras && cameraIds.length > 0)
 
 	const { data: result, isLoading: isLoadingDetections } = useQuery({
 		queryKey: ['detections', min_timestamp, max_timestamp, cameraIds.join(','), view],
@@ -59,7 +62,7 @@ export function DemographicDashboardPage() {
 				},
 				params: { limit: 10000, offset: 0 },
 			}),
-		enabled: canFetchDetections
+		enabled: canFetchDetections,
 	})
 
 	const isLoading = isLoadingCameras || isLoadingDetections
@@ -77,19 +80,6 @@ export function DemographicDashboardPage() {
 
 			{view === 'daily' && <DashboardDailyFilters />}
 
-			{/* <div className="text-xs flex justify-end">
-				<div>
-					<span>Dados análisados entre</span>{' '}
-					<span className="font-semibold">
-						{format(startDateISO, 'dd MMM yyyy', { locale: ptBR })}
-					</span>{' '}
-					-{' '}
-					<span className="font-semibold">
-						{format(endDateISO, 'dd MMM yyyy', { locale: ptBR })}
-					</span>
-				</div>
-			</div> */}
-
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (
 					<>
@@ -101,9 +91,9 @@ export function DemographicDashboardPage() {
 				) : (
 					<>
 						<DetectionsAmountCard amount={cards.detections.amount} activeCams={cameraIds.length} />
+						<ConfidenceCard confidence={cards.confidence.amount} />
 						<MaleAmountCard amount={cards.male.amount} percentOfTotal={cards.male.percent} />
 						<FemaleAmountCard amount={cards.female.amount} percentOfTotal={cards.female.percent} />
-						<ConfidenceCard confidence={cards.confidence.amount} />
 					</>
 				)}
 			</div>

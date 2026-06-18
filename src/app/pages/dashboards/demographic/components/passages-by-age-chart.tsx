@@ -7,6 +7,7 @@ import {
 	Rectangle,
 	XAxis,
 } from 'recharts'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -17,13 +18,6 @@ import {
 } from '@/components/ui/chart'
 
 export const description = 'A stacked bar chart with a legend'
-
-const chartConfig = {
-	passages: {
-		label: 'Passagens',
-		color: 'var(--primary)',
-	},
-} satisfies ChartConfig
 
 interface ChartItem {
 	age: string
@@ -45,13 +39,22 @@ function getHighestPassagesIndex(data: ChartItem[]) {
 }
 
 export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
+	const { t } = useTranslation()
 	const activeIndex = getHighestPassagesIndex(data)
+	const chartConfig = {
+		passages: {
+			label: t('dashboards.demographic.charts.age.passages'),
+			color: 'var(--primary)',
+		},
+	} satisfies ChartConfig
 
 	return (
 		<Card className="flex md:col-span-4 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
-				<CardTitle>Distribuição por faixa etária</CardTitle>
-				<CardDescription>Quantidade de detecções agrupadas por idade estimada.</CardDescription>
+				<CardTitle>{t('dashboards.demographic.charts.age.title')}</CardTitle>
+				<CardDescription>
+					{t('dashboards.demographic.charts.age.subtitle')}
+				</CardDescription>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">

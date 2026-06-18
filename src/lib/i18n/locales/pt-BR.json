@@ -1,0 +1,90 @@
+{
+	"navigation": {
+		"dashboards": "Dashboards",
+		"demographic": {
+			"title": "Dashboard Demográfico",
+			"description": "Visualize dados demográficos das detecções, como gênero, idade, horários de pico e volume de passagens."
+		},
+		"movement": {
+			"title": "Dashboard de Movimentação",
+			"description": "Acompanhe o fluxo por câmera, áreas de maior atividade e sinais operacionais de atenção."
+		},
+		"detections_history": "Histórico de Detecções"
+	},
+	"filters": {
+		"labels": {
+			"filters": "Filtros",
+			"cameras": "Câmeras"
+		},
+		"inputs": {
+			"select_cameras": "Selecionar câmeras",
+			"selected_cameras_one": "{{count}} selecionada",
+			"selected_cameras_other": "{{count}} selecionadas",
+			"loading_cameras": "Carregando câmeras...",
+			"no_cameras": "Nenhuma câmera disponível"
+		}
+	},
+	"dashboards": {
+		"filters": {
+			"labels": {
+				"period": "Período"
+			},
+			"buttons": {
+				"generate_dashboard": "Gerar Dashboard"
+			},
+			"views": {
+				"daily": "Diário",
+				"weekly": "Semanal",
+				"monthly": "Mensal"
+			}
+		},
+		"demographic": {
+			"cards": {
+				"female": {
+					"title": "Total de mulheres",
+					"subtitle": "Gênero estimado",
+					"passages": "passagens",
+					"of_total": "Do total detectado"
+				},
+				"male": {
+					"title": "Total de homens",
+					"subtitle": "Gênero estimado",
+					"passages": "passagens",
+					"of_total": "Do total detectado"
+				},
+				"confidence": {
+					"title": "Confiança média",
+					"subtitle": "Das detecções faciais",
+					"average": "média",
+					"footer_text": "Baseada no score da API"
+				},
+				"total": {
+					"title": "Total de detecções",
+					"subtitle": "Período selecionado",
+					"passages": "passagens",
+					"footer_text": "Câmeras monitoradas",
+					"active_one": "{{count}} ativa",
+					"active_other": "{{count}} ativas"
+				}
+			},
+			"charts": {
+				"gender": {
+					"title": "Fluxo de passagens por gênero",
+					"subtitle": "Tendência de detecções masculinas e femininas ao longo do dia.",
+					"male": "Homem",
+					"female": "Mulher"
+				},
+				"age": {
+					"title": "Distribuição por faixa etária",
+					"subtitle": "Quantidade de detecções agrupadas por idade estimada.",
+					"passages": "Passagens"
+				}
+			}
+		}
+	},
+	"theme": {
+		"dark": "Escuro",
+		"light": "Claro",
+		"system": "Sistema"
+	}
+}

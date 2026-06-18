@@ -1,0 +1,90 @@
+{
+	"navigation": {
+		"dashboards": "Dashboards",
+		"demographic": {
+			"title": "Demographic Dashboard",
+			"description": "View demographic detection data, such as gender, age, peak hours, and passage volume."
+		},
+		"movement": {
+			"title": "Movement Dashboard",
+			"description": "Track camera flow, areas with the most activity, and operational signals that require attention."
+		},
+		"detections_history": "Detection History"
+	},
+	"filters": {
+		"labels": {
+			"filters": "Filters",
+			"cameras": "Cameras"
+		},
+		"inputs": {
+			"select_cameras": "Select cameras",
+			"selected_cameras_one": "{{count}} selected",
+			"selected_cameras_other": "{{count}} selected",
+			"loading_cameras": "Loading cameras...",
+			"no_cameras": "No cameras available"
+		}
+	},
+	"dashboards": {
+		"filters": {
+			"labels": {
+				"period": "Period"
+			},
+			"buttons": {
+				"generate_dashboard": "Generate Dashboard"
+			},
+			"views": {
+				"daily": "Daily",
+				"weekly": "Weekly",
+				"monthly": "Monthly"
+			}
+		},
+		"demographic": {
+			"cards": {
+				"female": {
+					"title": "Total women",
+					"subtitle": "Estimated gender",
+					"passages": "passages",
+					"of_total": "Of total detected"
+				},
+				"male": {
+					"title": "Total men",
+					"subtitle": "Estimated gender",
+					"passages": "passages",
+					"of_total": "Of total detected"
+				},
+				"confidence": {
+					"title": "Average confidence",
+					"subtitle": "From facial detections",
+					"average": "average",
+					"footer_text": "Based on the API score"
+				},
+				"total": {
+					"title": "Total detections",
+					"subtitle": "Selected period",
+					"passages": "passages",
+					"footer_text": "Monitored cameras",
+					"active_one": "{{count}} active",
+					"active_other": "{{count}} active"
+				}
+			},
+			"charts": {
+				"gender": {
+					"title": "Passage flow by gender",
+					"subtitle": "Trend of male and female detections throughout the day.",
+					"male": "Man",
+					"female": "Woman"
+				},
+				"age": {
+					"title": "Distribution by age group",
+					"subtitle": "Number of detections grouped by estimated age.",
+					"passages": "Passages"
+				}
+			}
+		}
+	},
+	"theme": {
+		"dark": "Dark",
+		"light": "Light",
+		"system": "System"
+	}
+}

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import {
 	DropdownMenu,
@@ -22,6 +23,7 @@ interface CameraFilterProps {
 }
 
 export function CameraFilter({ options, value, onValueChange, isLoading }: CameraFilterProps) {
+	const { t } = useTranslation()
 	const [internalValue, setInternalValue] = useState<string[]>([])
 
 	const selectedValues = value ?? internalValue
@@ -36,10 +38,12 @@ export function CameraFilter({ options, value, onValueChange, isLoading }: Camer
 		onValueChange?.(nextValue)
 	}
 
+	const selectedCount = selectedCameras.length
+
 	const buttonLabel =
-		selectedCameras.length > 0
-			? `${selectedCameras.length} ${selectedCameras.length === 1 ? 'selecionada' : 'selecionadas'}`
-			: 'Selecionar câmeras'
+		selectedCount > 0
+			? t('filters.inputs.selected_cameras', { count: selectedCount })
+			: t('filters.inputs.select_cameras')
 
 	return (
 		<DropdownMenu>
@@ -50,19 +54,19 @@ export function CameraFilter({ options, value, onValueChange, isLoading }: Camer
 			</DropdownMenuTrigger>
 
 			<DropdownMenuContent align="start" className="w-56">
-				<DropdownMenuLabel>Câmeras</DropdownMenuLabel>
+				<DropdownMenuLabel>{t('filters.labels.cameras')}</DropdownMenuLabel>
 
 				<DropdownMenuSeparator />
 
 				{isLoading && (
 					<DropdownMenuCheckboxItem disabled checked={false}>
-						Carregando câmeras...
+						{t('filters.inputs.loading_cameras')}
 					</DropdownMenuCheckboxItem>
 				)}
 
 				{!isLoading && options.length === 0 && (
 					<DropdownMenuCheckboxItem disabled checked={false}>
-						Nenhuma câmera disponível
+						{t('filters.inputs.no_cameras')}
 					</DropdownMenuCheckboxItem>
 				)}
 

@@ -1,4 +1,5 @@
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -7,17 +8,6 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
-
-const chartConfig = {
-	male: {
-		label: 'Homen',
-		color: '#0370ec',
-	},
-	female: {
-		label: 'Mulher',
-		color: '#ee4088dd',
-	},
-} satisfies ChartConfig
 
 interface ChartItem {
 	label: string
@@ -30,12 +20,24 @@ interface PassagesByGenderChartProps {
 }
 
 export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
+	const { t } = useTranslation()
+	const chartConfig = {
+		male: {
+			label: t('dashboards.demographic.charts.gender.male'),
+			color: '#0370ec',
+		},
+		female: {
+			label: t('dashboards.demographic.charts.gender.female'),
+			color: '#ee4088dd',
+		},
+	} satisfies ChartConfig
+
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
-				<CardTitle>Fluxo de passagens por gênero</CardTitle>
+				<CardTitle>{t('dashboards.demographic.charts.gender.title')}</CardTitle>
 				<CardDescription>
-					Tendência de detecções masculinas e femininas ao longo do dia.
+					{t('dashboards.demographic.charts.gender.subtitle')}
 				</CardDescription>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
