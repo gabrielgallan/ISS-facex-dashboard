@@ -21,7 +21,7 @@ interface MovementDashboardCharts {
 }
 
 function getTimelineLabel(hour: number) {
-	return format(new Date(2000, 0, 1, hour), 'HH:00')
+	return format(new Date(2000, 0, 1, hour), "HH'h")
 }
 
 export function useMovementDashboardCharts(
@@ -46,8 +46,7 @@ export function useMovementDashboardCharts(
 
 		const cameraRanking = [...passagesByCamera.entries()]
 			.map(([cameraId, passages]) => ({
-				cameraName:
-					cameras?.find((camera) => camera.id === cameraId)?.name ?? `Câmera ${cameraId}`,
+				cameraName: cameras?.find((camera) => camera.id === cameraId)?.name ?? `Câmera ${cameraId}`,
 				passages,
 			}))
 			.sort((cameraA, cameraB) => cameraB.passages - cameraA.passages)

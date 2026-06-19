@@ -1,5 +1,5 @@
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import { useTranslation } from 'react-i18next'
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -28,7 +28,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 		},
 		female: {
 			label: t('dashboards.demographic.charts.gender.female'),
-			color: '#ee4088dd',
+			color: '#f43f5e',
 		},
 	} satisfies ChartConfig
 
@@ -36,9 +36,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
 				<CardTitle>{t('dashboards.demographic.charts.gender.title')}</CardTitle>
-				<CardDescription>
-					{t('dashboards.demographic.charts.gender.subtitle')}
-				</CardDescription>
+				<CardDescription>{t('dashboards.demographic.charts.gender.subtitle')}</CardDescription>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">

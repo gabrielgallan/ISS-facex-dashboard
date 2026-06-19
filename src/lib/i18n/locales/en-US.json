@@ -1,14 +1,7 @@
 {
 	"navigation": {
-		"dashboards": "Dashboards",
-		"demographic": {
-			"title": "Demographic Dashboard",
-			"description": "View demographic detection data, such as gender, age, peak hours, and passage volume."
-		},
-		"movement": {
-			"title": "Movement Dashboard",
-			"description": "Track camera flow, areas with the most activity, and operational signals that require attention."
-		},
+		"demographic_dashboard": "Demographic Dashboard",
+		"movement_dashboard": "Movement Dashboard",
 		"detections_history": "Detection History"
 	},
 	"filters": {

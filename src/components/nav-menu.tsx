@@ -1,12 +1,10 @@
-import { Link } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router-dom'
 import {
 	NavigationMenu,
-	NavigationMenuContent,
 	NavigationMenuItem,
 	NavigationMenuLink,
 	NavigationMenuList,
-	NavigationMenuTrigger,
 	navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 
@@ -17,23 +15,18 @@ export function NavMenu() {
 		<NavigationMenu>
 			<NavigationMenuList className="flex gap-2">
 				<NavigationMenuItem>
-					<NavigationMenuTrigger>{t('navigation.dashboards')}</NavigationMenuTrigger>
-					<NavigationMenuContent>
-						<ul className="w-94">
-							<ListItem
-								href="/dashboards/demographic"
-								title={t('navigation.demographic.title')}
-							>
-								{t('navigation.demographic.description')}
-							</ListItem>
-							<ListItem
-								href="/dashboards/movement"
-								title={t('navigation.movement.title')}
-							>
-								{t('navigation.movement.description')}
-							</ListItem>
-						</ul>
-					</NavigationMenuContent>
+					<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+						<Link to="/dashboards/demographic">
+							<span>{t('navigation.demographic_dashboard')}</span>
+						</Link>
+					</NavigationMenuLink>
+				</NavigationMenuItem>
+				<NavigationMenuItem>
+					<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+						<Link to="/dashboards/movement">
+							<span>{t('navigation.movement_dashboard')}</span>
+						</Link>
+					</NavigationMenuLink>
 				</NavigationMenuItem>
 				<NavigationMenuItem>
 					<NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
@@ -44,25 +37,5 @@ export function NavMenu() {
 				</NavigationMenuItem>
 			</NavigationMenuList>
 		</NavigationMenu>
-	)
-}
-
-function ListItem({
-	title,
-	children,
-	href,
-	...props
-}: React.ComponentPropsWithoutRef<'li'> & { href: string }) {
-	return (
-		<li {...props}>
-			<NavigationMenuLink asChild>
-				<Link to={href}>
-					<div className="flex flex-col gap-1 text-sm">
-						<div className="leading-none font-medium">{title}</div>
-						<div className="line-clamp-2 text-muted-foreground">{children}</div>
-					</div>
-				</Link>
-			</NavigationMenuLink>
-		</li>
 	)
 }

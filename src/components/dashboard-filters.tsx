@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { format, parseISO } from 'date-fns'
-import { RefreshCw } from 'lucide-react'
+import { Loader2, RefreshCw } from 'lucide-react'
 import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
@@ -11,11 +11,13 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 
 interface DashboardFiltersProps {
+	isLoading?: boolean
 	hasDayPicker?: boolean
 	hasCamerasFilter?: boolean
 }
 
 export function DashboardFilters({
+	isLoading = false,
 	hasDayPicker = false,
 	hasCamerasFilter = true,
 }: DashboardFiltersProps) {
@@ -56,7 +58,7 @@ export function DashboardFilters({
 
 	return (
 		<form onSubmit={handleFilter}>
-			<div className="flex gap-2 w-full md:w-fit md:items-center">
+			<div className="flex gap-2 w-fit md:w-fit md:items-center">
 				<Label className="hidden md:block text-xs">{t('filters.labels.filters')}</Label>
 
 				<div className="md:flex grid gap-2">
@@ -71,9 +73,18 @@ export function DashboardFilters({
 						/>
 					)}
 
-					<Button type="submit" variant="secondary" className="gap-2">
-						<RefreshCw className="size-4" />
-						<span className="text-sm">{t('dashboards.filters.buttons.generate_dashboard')}</span>
+					<Button type="submit" variant="secondary" className="w-38 gap-2" disabled={isLoading}>
+						{isLoading ? (
+							<Loader2 className="animate-spin" />
+						) : (
+							<>
+								<RefreshCw className="size-4" />
+
+								<span className="text-sm">
+									{t('dashboards.filters.buttons.generate_dashboard')}
+								</span>
+							</>
+						)}
 					</Button>
 				</div>
 			</div>

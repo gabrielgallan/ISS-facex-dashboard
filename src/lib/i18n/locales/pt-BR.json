@@ -1,14 +1,7 @@
 {
 	"navigation": {
-		"dashboards": "Dashboards",
-		"demographic": {
-			"title": "Dashboard Demográfico",
-			"description": "Visualize dados demográficos das detecções, como gênero, idade, horários de pico e volume de passagens."
-		},
-		"movement": {
-			"title": "Dashboard de Movimentação",
-			"description": "Acompanhe o fluxo por câmera, áreas de maior atividade e sinais operacionais de atenção."
-		},
+		"demographic_dashboard": "Demografia",
+		"movement_dashboard": "Ocupação",
 		"detections_history": "Histórico de Detecções"
 	},
 	"filters": {

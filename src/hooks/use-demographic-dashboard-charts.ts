@@ -48,7 +48,7 @@ function getDayLabel(
 	locale: ReturnType<typeof getLocaleModules>['dateFns']
 ) {
 	if (view === 'weekly') {
-		return format(date, 'EEE', { locale })
+		return format(date, 'EEE', { locale }).slice(0, 3)
 	}
 
 	return format(date, 'dd MMM', { locale })

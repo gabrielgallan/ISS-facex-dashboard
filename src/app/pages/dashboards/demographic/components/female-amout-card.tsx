@@ -11,6 +11,10 @@ export function FemaleAmountCard({ amount, percentOfTotal }: FemaleAmountCardPro
 	const { t, i18n } = useTranslation()
 	const language = i18n.resolvedLanguage ?? i18n.language
 
+	const formatedPercent = percentOfTotal.toLocaleString(language, {
+		style: 'percent',
+	})
+
 	return (
 		<Card className="gap-4 border-rose-500/10 bg-linear-to-br from-card to-rose-500/5">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
@@ -40,11 +44,17 @@ export function FemaleAmountCard({ amount, percentOfTotal }: FemaleAmountCardPro
 					<span className="text-muted-foreground">
 						{t('dashboards.demographic.cards.female.of_total')}
 					</span>
-					<span className="font-medium text-rose-500">
-						{percentOfTotal.toLocaleString(language, {
-							style: 'percent',
-						})}
-					</span>
+
+					<div className="flex items-center gap-2">
+						<div className="h-2 w-26 overflow-hidden rounded-xs bg-muted">
+							<div
+								className="h-full rounded-xs bg-rose-500"
+								style={{ width: `${formatedPercent}` }}
+							/>
+						</div>
+
+						<span className="font-medium text-rose-500">{formatedPercent}</span>
+					</div>
 				</div>
 			</CardContent>
 		</Card>

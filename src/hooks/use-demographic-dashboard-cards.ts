@@ -6,7 +6,7 @@ interface CardMetric {
 	percent: number
 }
 
-interface DemographicDashboardCards {
+export interface DemographicDashboardCards {
 	cards: {
 		detections: Pick<CardMetric, 'amount'>
 		confidence: Pick<CardMetric, 'amount'>

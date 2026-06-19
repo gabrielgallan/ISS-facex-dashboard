@@ -1,8 +1,8 @@
-import { Hash } from 'lucide-react'
+import { Ellipsis, Hash } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Pagination } from '@/components/pagination'
-import { Checkbox } from '@/components/ui/checkbox'
+import { Button } from '@/components/ui/button'
 import {
 	Table,
 	TableBody,
@@ -12,6 +12,7 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import type { CameraRank } from '@/hooks/use-movement-dashboard-camera-ranking'
+import { CameraDetailsDialog } from './camera-details-dialog'
 
 function CameraRankingTableRow({ camera }: { camera: CameraRank }) {
 	const { i18n } = useTranslation()
@@ -20,15 +21,11 @@ function CameraRankingTableRow({ camera }: { camera: CameraRank }) {
 
 	return (
 		<TableRow>
-			<TableCell>
-				<Checkbox />
-			</TableCell>
-
 			<TableCell className="font-medium">{camera.rank}</TableCell>
 
-			<TableCell>{camera.name}</TableCell>
+			<TableCell className="font-medium">{camera.name}</TableCell>
 
-			<TableCell className="text-muted-foreground">[{camera.id}]</TableCell>
+			<TableCell className="text-muted-foreground">[ {camera.id} ]</TableCell>
 
 			<TableCell className="text-right tabular-nums">
 				{camera.passages.toLocaleString(i18n.language)}
@@ -45,6 +42,14 @@ function CameraRankingTableRow({ camera }: { camera: CameraRank }) {
 
 					<span className="w-10 tabular-nums">{formatedPercent}</span>
 				</div>
+			</TableCell>
+
+			<TableCell className="text-right">
+				<CameraDetailsDialog>
+					<Button size="icon" variant="outline">
+						<Ellipsis className="text-muted-foreground" />
+					</Button>
+				</CameraDetailsDialog>
 			</TableCell>
 		</TableRow>
 	)
@@ -68,9 +73,6 @@ export function CameraRankingTable({ cameras }: CameraRankingTableProps) {
 				<Table>
 					<TableHeader className="bg-muted/55">
 						<TableRow>
-							<TableHead className="w-8">
-								<Checkbox />
-							</TableHead>
 							<TableHead className="w-20">
 								<div className="flex items-center gap-2">
 									<Hash className="size-3 text-muted-foreground" />
@@ -78,10 +80,20 @@ export function CameraRankingTable({ cameras }: CameraRankingTableProps) {
 								</div>
 							</TableHead>
 
-							<TableHead className="w-36">{t('dashboards.movement.camera_ranking_table.columns.camera_name')}</TableHead>
-							<TableHead className="w-32">{t('dashboards.movement.camera_ranking_table.columns.camera_id')}</TableHead>
-							<TableHead className="text-right w-64">{t('dashboards.movement.camera_ranking_table.columns.passages')}</TableHead>
-							<TableHead className="text-right w-42">{t('dashboards.movement.camera_ranking_table.columns.percent_of_total')}</TableHead>
+							<TableHead className="w-36">
+								{t('dashboards.movement.camera_ranking_table.columns.camera_name')}
+							</TableHead>
+							<TableHead className="w-32">
+								{t('dashboards.movement.camera_ranking_table.columns.camera_id')}
+							</TableHead>
+							<TableHead className="text-right w-64">
+								{t('dashboards.movement.camera_ranking_table.columns.passages')}
+							</TableHead>
+							<TableHead className="text-right w-42">
+								{t('dashboards.movement.camera_ranking_table.columns.percent_of_total')}
+							</TableHead>
+
+							<TableHead className="text-right w-4" />
 						</TableRow>
 					</TableHeader>
 

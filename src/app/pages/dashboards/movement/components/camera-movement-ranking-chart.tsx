@@ -1,9 +1,11 @@
-import { Pie, PieChart, type PieSectorShapeProps, Sector } from 'recharts'
 import { useTranslation } from 'react-i18next'
+import { Pie, PieChart, type PieSectorShapeProps, Sector } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
 	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
@@ -43,23 +45,37 @@ function getPrimaryFill(index: number, activeIndex: number) {
 
 export function CameraMovementRankingChart({ data: ranking }: CameraMovementRankingChartProps) {
 	const { t } = useTranslation()
-	const chartConfig = {
-		passages: {
-			label: t('dashboards.movement.charts.camera_ranking.passages'),
-			color: 'var(--primary)',
-		},
-	} satisfies ChartConfig
+
 	const activeIndex = getActiveIndex(ranking)
+
+	// Precisa vir antes do chartConfig pois é usado no getPrimaryFill
 	const data: CameraMovementRankingChartItem[] = ranking.map((camera, index) => ({
 		...camera,
 		fill: getPrimaryFill(index, activeIndex),
 	}))
 
+	const chartConfig = {
+		passages: {
+			label: t('dashboards.movement.charts.camera_ranking.passages'),
+		},
+		...Object.fromEntries(
+			ranking.map((camera, index) => [
+				camera.cameraName,
+				{
+					label: camera.cameraName,
+					color: getPrimaryFill(index, activeIndex),
+				},
+			])
+		),
+	} satisfies ChartConfig
+
 	return (
 		<Card className="flex col-span-4 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
 				<CardTitle>{t('dashboards.movement.charts.camera_ranking.title')}</CardTitle>
-				<CardDescription>{t('dashboards.movement.charts.camera_ranking.description')}</CardDescription>
+				<CardDescription>
+					{t('dashboards.movement.charts.camera_ranking.description')}
+				</CardDescription>
 			</CardHeader>
 
 			<CardContent className="min-h-0 flex-1">
@@ -71,7 +87,6 @@ export function CameraMovementRankingChart({ data: ranking }: CameraMovementRank
 					>
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
 						<Pie
-							label
 							labelLine={false}
 							data={data}
 							dataKey="passages"
@@ -87,6 +102,20 @@ export function CameraMovementRankingChart({ data: ranking }: CameraMovementRank
 									<Sector {...props} outerRadius={outerRadius} />
 								)
 							}
+						/>
+
+						<ChartLegend
+							layout="vertical"
+							verticalAlign="bottom"
+							align="left"
+							content={(props) => (
+								<ChartLegendContent
+									{...props}
+									payload={props.payload?.slice(0, 5)}
+									nameKey="cameraName"
+								/>
+							)}
+							className="flex-col items-start gap-2"
 						/>
 					</PieChart>
 				</ChartContainer>

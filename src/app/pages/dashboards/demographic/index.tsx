@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
+import { Download } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import { listDetections } from '@/api/facex/list-detections'
 import { getCameras } from '@/api/server/get-cameras'
 import { DashboardFilters } from '@/components/dashboard-filters'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
 import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
+import { Button } from '@/components/ui/button'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
@@ -74,15 +77,26 @@ export function DemographicDashboardPage() {
 		endDate: endDateISO,
 	})
 
+	function handleDownloadReport() {
+		toast('Feature not implemented yet!', { position: 'top-right' })
+	}
+
 	return (
 		<div className="space-y-4 p-4">
 			<DashboardViewToggle />
 
-			{view === 'daily' && <DashboardFilters hasDayPicker />}
+			<div className="flex justify-between">
+				{view === 'daily' && <DashboardFilters hasDayPicker isLoading={isLoading} />}
 
-			{view === 'weekly' && <DashboardFilters />}
+				{view === 'weekly' && <DashboardFilters isLoading={isLoading} />}
 
-			{view === 'monthly' && <DashboardFilters />}
+				{view === 'monthly' && <DashboardFilters isLoading={isLoading} />}
+
+				<Button onClick={handleDownloadReport} variant="secondary">
+					<Download className="size-4" />
+					Baixar relatório
+				</Button>
+			</div>
 
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (
