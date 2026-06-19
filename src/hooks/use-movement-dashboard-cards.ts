@@ -2,6 +2,7 @@ import { format, getHours, isValid, parseISO } from 'date-fns'
 import { useMemo } from 'react'
 import type { DetectionDTO } from '@/api/facex/dto/list-detections-response.dto'
 import type { GetCamerasResponseDTO } from '@/api/server/dto/get-cameras-response.dto'
+import { i18n } from '@/lib/i18n'
 
 interface MovementDashboardCards {
 	cards: {
@@ -16,8 +17,8 @@ function getEmptyCards(): MovementDashboardCards {
 	return {
 		cards: {
 			movement: { amount: 0 },
-			mostActiveCamera: { cameraName: 'Sem dados', passages: 0 },
-			peakHour: { hour: 'Sem dados', passages: 0 },
+			mostActiveCamera: { cameraName: i18n.t('no_data'), passages: 0 },
+			peakHour: { hour: i18n.t('no_data'), passages: 0 },
 			noMatchRate: { percent: 0 },
 		},
 	}
@@ -87,10 +88,7 @@ export function useMovementDashboardCards(
 					passages: mostActiveCameraPassages,
 				},
 				peakHour: {
-					hour:
-						peakHour >= 0
-							? format(new Date(2000, 0, 1, peakHour), 'HH:00')
-							: 'Sem dados',
+					hour: peakHour >= 0 ? format(new Date(2000, 0, 1, peakHour), 'HH:00') : 'Sem dados',
 					passages: peakHourPassages,
 				},
 				noMatchRate: { percent: noMatchAmount / total },

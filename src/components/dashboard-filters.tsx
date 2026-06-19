@@ -1,16 +1,24 @@
-import { format, parseISO } from 'date-fns'
-import { ChartArea } from 'lucide-react'
-import { type FormEvent, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
+import { format, parseISO } from 'date-fns'
+import { RefreshCw } from 'lucide-react'
+import { type FormEvent, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import { getCameras } from '@/api/server/get-cameras'
 import { CameraFilter } from '@/components/camera-filter'
 import { DatePicker } from '@/components/date-picker'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 
-export function DashboardDailyFilters() {
+interface DashboardFiltersProps {
+	hasDayPicker?: boolean
+	hasCamerasFilter?: boolean
+}
+
+export function DashboardFilters({
+	hasDayPicker = false,
+	hasCamerasFilter = true,
+}: DashboardFiltersProps) {
 	const { t } = useTranslation()
 	const [searchParams, setSearchParams] = useSearchParams()
 
@@ -20,7 +28,9 @@ export function DashboardDailyFilters() {
 	})
 
 	const initialDateValue = searchParams.get('date') ?? format(new Date(), 'yyyy-MM-dd')
+
 	const initialCameraIds = searchParams.getAll('cameraId')
+
 	const cameraOptions = cameras?.map(({ id, name }) => ({ id, name })) ?? []
 
 	const dateISO = parseISO(initialDateValue)
@@ -50,20 +60,20 @@ export function DashboardDailyFilters() {
 				<Label className="hidden md:block text-xs">{t('filters.labels.filters')}</Label>
 
 				<div className="md:flex grid gap-2">
-					<DatePicker value={date} onChange={setDate} />
+					{hasDayPicker && <DatePicker value={date} onChange={setDate} />}
 
-					<CameraFilter
-						options={cameraOptions}
-						value={cameraIds}
-						onValueChange={setCameraIds}
-						isLoading={isLoadingCameras}
-					/>
+					{hasCamerasFilter && (
+						<CameraFilter
+							options={cameraOptions}
+							value={cameraIds}
+							onValueChange={setCameraIds}
+							isLoading={isLoadingCameras}
+						/>
+					)}
 
 					<Button type="submit" variant="secondary" className="gap-2">
-						<ChartArea className="size-4" />
-						<span className="text-sm">
-							{t('dashboards.filters.buttons.generate_dashboard')}
-						</span>
+						<RefreshCw className="size-4" />
+						<span className="text-sm">{t('dashboards.filters.buttons.generate_dashboard')}</span>
 					</Button>
 				</div>
 			</div>

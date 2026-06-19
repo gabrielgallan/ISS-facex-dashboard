@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Languages } from 'lucide-react'
+import { Check, ChevronsUpDown, Languages } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { SupportedLanguages } from '@/lib/i18n'
 import { Button } from './ui/button'
@@ -34,7 +34,7 @@ export function LanguageToggle() {
 					<Languages className="size-4" />
 					<span>{languages[currentLanguage].label ?? 'Idioma'}</span>
 
-					<ChevronDown className="size-4 text-muted-foreground" />
+					<ChevronsUpDown className="size-4 text-muted-foreground" />
 				</Button>
 			</DropdownMenuTrigger>
 

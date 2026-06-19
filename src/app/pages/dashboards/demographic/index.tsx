@@ -3,13 +3,13 @@ import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
 import { useSearchParams } from 'react-router-dom'
 import { listDetections } from '@/api/facex/list-detections'
 import { getCameras } from '@/api/server/get-cameras'
+import { DashboardFilters } from '@/components/dashboard-filters'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
 import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
 import { ConfidenceCard } from './components/confidence-card'
-import { DashboardDailyFilters } from './components/dashboard-daily-filters'
 import { DashboardViewToggle } from './components/dashboard-view-toggle'
 import { DetectionsAmountCard } from './components/detections-amount-card'
 import { FemaleAmountCard } from './components/female-amout-card'
@@ -78,7 +78,11 @@ export function DemographicDashboardPage() {
 		<div className="space-y-4 p-4">
 			<DashboardViewToggle />
 
-			{view === 'daily' && <DashboardDailyFilters />}
+			{view === 'daily' && <DashboardFilters hasDayPicker />}
+
+			{view === 'weekly' && <DashboardFilters />}
+
+			{view === 'monthly' && <DashboardFilters />}
 
 			<div className="grid gap-4 md:grid-cols-4">
 				{isLoading ? (

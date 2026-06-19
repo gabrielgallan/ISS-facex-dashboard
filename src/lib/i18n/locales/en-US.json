@@ -80,11 +80,67 @@
 					"passages": "Passages"
 				}
 			}
+		},
+		"movement": {
+			"camera_ranking_table": {
+				"columns": {
+					"rank": "Rank",
+					"camera_name": "Camera name",
+					"camera_id": "Camera ID",
+					"passages": "Passages",
+					"percent_of_total": "% of total"
+				}
+			},
+			"cards": {
+				"movement": {
+					"title": "Total movement",
+					"subtitle": "Monitored period",
+					"footer_text": "Consolidated passages"
+				},
+				"most_active_camera": {
+					"title": "Peak camera",
+					"passages_one": "{{count}} passage",
+					"passages_other": "{{count}} passages"
+				},
+				"peak_hour": {
+					"title": "Peak hour",
+					"subtitle": "Highest concentration",
+					"passages_one": "{{count}} passage",
+					"passages_other": "{{count}} passages"
+				},
+				"no_match_rate": {
+					"title": "No match rate",
+					"subtitle": "Detections without a match",
+					"footer_text": "Operational attention signal"
+				}
+			},
+			"charts": {
+				"camera_ranking": {
+					"title": "Movement ranking",
+					"description": "Passage volume grouped by monitored camera.",
+					"passages": "Passages"
+				},
+				"timeline": {
+					"title": "Operational trend",
+					"description": "Total flow over the monitored period.",
+					"passages": "Passages"
+				}
+			}
 		}
 	},
 	"theme": {
 		"dark": "Dark",
 		"light": "Light",
 		"system": "System"
-	}
+	},
+	"pagination": {
+		"total_items_one": "{{count}} total item",
+		"total_items_other": "{{count}} total items",
+		"page_of": "Page {{page}} of {{pages}}",
+		"first_page": "First page",
+		"previous_page": "Previous page",
+		"next_page": "Next page",
+		"last_page": "Last page"
+	},
+	"no_data": "No data"
 }

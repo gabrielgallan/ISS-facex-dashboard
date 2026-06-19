@@ -34,8 +34,8 @@
 			},
 			"views": {
 				"daily": "Diário",
-				"weekly": "Semanal",
-				"monthly": "Mensal"
+				"weekly": "Esta semana",
+				"monthly": "Este mês"
 			}
 		},
 		"demographic": {
@@ -80,11 +80,67 @@
 					"passages": "Passagens"
 				}
 			}
+		},
+		"movement": {
+			"camera_ranking_table": {
+				"columns": {
+					"rank": "Rank",
+					"camera_name": "Nome da câmera",
+					"camera_id": "ID da câmera",
+					"passages": "Passagens",
+					"percent_of_total": "% do total"
+				}
+			},
+			"cards": {
+				"movement": {
+					"title": "Movimentação total",
+					"subtitle": "Período monitorado",
+					"footer_text": "Passagens consolidadas"
+				},
+				"most_active_camera": {
+					"title": "Câmera de pico",
+					"passages_one": "{{count}} passagem",
+					"passages_other": "{{count}} passagens"
+				},
+				"peak_hour": {
+					"title": "Horário de pico",
+					"subtitle": "Maior concentração",
+					"passages_one": "{{count}} passagem",
+					"passages_other": "{{count}} passagens"
+				},
+				"no_match_rate": {
+					"title": "Taxa de desconhecidos",
+					"subtitle": "Detecções sem correspondência",
+					"footer_text": "Sinal operacional de atenção"
+				}
+			},
+			"charts": {
+				"camera_ranking": {
+					"title": "Ranking de movimentação",
+					"description": "Volume de passagens agrupado por câmera monitorada.",
+					"passages": "Passagens"
+				},
+				"timeline": {
+					"title": "Tendência operacional",
+					"description": "Evolução do fluxo total ao longo do período monitorado.",
+					"passages": "Passagens"
+				}
+			}
 		}
 	},
 	"theme": {
 		"dark": "Escuro",
 		"light": "Claro",
 		"system": "Sistema"
-	}
+	},
+	"pagination": {
+		"total_items_one": "{{count}} item no total",
+		"total_items_other": "{{count}} itens no total",
+		"page_of": "Página {{page}} de {{pages}}",
+		"first_page": "Primeira página",
+		"previous_page": "Página anterior",
+		"next_page": "Próxima página",
+		"last_page": "Última página"
+	},
+	"no_data": "Sem dados"
 }

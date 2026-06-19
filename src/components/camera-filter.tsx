@@ -65,7 +65,7 @@ export function CameraFilter({ options, value, onValueChange, isLoading }: Camer
 				)}
 
 				{!isLoading && options.length === 0 && (
-					<DropdownMenuCheckboxItem disabled checked={false}>
+					<DropdownMenuCheckboxItem disabled checked={false} className="text-xs">
 						{t('filters.inputs.no_cameras')}
 					</DropdownMenuCheckboxItem>
 				)}
