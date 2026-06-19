@@ -1,4 +1,5 @@
 import { Video } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 interface MostActiveCameraCardProps {
@@ -6,15 +7,16 @@ interface MostActiveCameraCardProps {
 	passages: number
 }
 
-export function MostActiveCameraCard({
-	cameraName = 'Camera 1',
-	passages = 742,
-}: MostActiveCameraCardProps) {
+export function MostActiveCameraCard({ cameraName, passages }: MostActiveCameraCardProps) {
+	const { t } = useTranslation()
+
 	return (
 		<Card className="gap-4">
 			<CardHeader className="flex flex-row items-start justify-between space-y-0">
 				<div className="space-y-1">
-					<CardTitle className="text-base font-semibold">Câmera de pico</CardTitle>
+					<CardTitle className="text-base font-semibold">
+						{t('dashboards.movement.cards.most_active_camera.title')}
+					</CardTitle>
 					{/* <p className="text-xs text-muted-foreground"></p> */}
 				</div>
 
@@ -29,7 +31,9 @@ export function MostActiveCameraCard({
 				</div>
 
 				<div className="flex items-center justify-between text-xs">
-					<span className="text-muted-foreground">{passages} passagens</span>
+					<span className="text-muted-foreground">
+						{t('dashboards.movement.cards.most_active_camera.passages', { count: passages })}
+					</span>
 				</div>
 			</CardContent>
 		</Card>

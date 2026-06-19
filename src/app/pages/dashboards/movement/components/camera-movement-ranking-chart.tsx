@@ -1,4 +1,5 @@
 import { Pie, PieChart, type PieSectorShapeProps, Sector } from 'recharts'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -6,13 +7,6 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
-
-const chartConfig = {
-	passages: {
-		label: 'Passagens',
-		color: 'var(--primary)',
-	},
-} satisfies ChartConfig
 
 interface CameraMovementRankingItem {
 	cameraName: string
@@ -48,6 +42,13 @@ function getPrimaryFill(index: number, activeIndex: number) {
 }
 
 export function CameraMovementRankingChart({ data: ranking }: CameraMovementRankingChartProps) {
+	const { t } = useTranslation()
+	const chartConfig = {
+		passages: {
+			label: t('dashboards.movement.charts.camera_ranking.passages'),
+			color: 'var(--primary)',
+		},
+	} satisfies ChartConfig
 	const activeIndex = getActiveIndex(ranking)
 	const data: CameraMovementRankingChartItem[] = ranking.map((camera, index) => ({
 		...camera,
@@ -57,8 +58,8 @@ export function CameraMovementRankingChart({ data: ranking }: CameraMovementRank
 	return (
 		<Card className="flex col-span-4 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
-				<CardTitle>Ranking de movimentação</CardTitle>
-				<CardDescription>Volume de passagens agrupado por câmera monitorada.</CardDescription>
+				<CardTitle>{t('dashboards.movement.charts.camera_ranking.title')}</CardTitle>
+				<CardDescription>{t('dashboards.movement.charts.camera_ranking.description')}</CardDescription>
 			</CardHeader>
 
 			<CardContent className="min-h-0 flex-1">

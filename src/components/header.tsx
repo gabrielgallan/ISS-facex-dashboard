@@ -1,4 +1,5 @@
 import securosLogo from '../assets/securos.svg'
+import { LanguageToggle } from './language-toggle'
 import { NavMenu } from './nav-menu'
 import { ThemeToggle } from './theme-toggle'
 import { Separator } from './ui/separator'
@@ -18,6 +19,7 @@ export function Header() {
 				<NavMenu />
 
 				<div className="ml-auto flex items-center gap-2">
+					<LanguageToggle />
 					<ThemeToggle />
 				</div>
 			</div>

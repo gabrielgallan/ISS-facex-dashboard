@@ -1,11 +1,12 @@
 import { format } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import type { DateRange } from 'react-day-picker'
-
+import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Calendar } from '@/components/ui/calendar'
 import { Field } from '@/components/ui/field'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { getLocaleModules } from '@/utils/get-locale-modules'
 
 interface DateRangePickerProps {
 	value: DateRange
@@ -13,6 +14,10 @@ interface DateRangePickerProps {
 }
 
 export function DateRangePicker({ value, onChange }: DateRangePickerProps) {
+	const { i18n } = useTranslation()
+
+	const { dayPicker } = getLocaleModules(i18n.language)
+
 	return (
 		<Field>
 			<Popover>
@@ -41,6 +46,7 @@ export function DateRangePicker({ value, onChange }: DateRangePickerProps) {
 
 				<PopoverContent className="w-auto p-0" align="start">
 					<Calendar
+						locale={dayPicker}
 						mode="range"
 						required
 						defaultMonth={value?.from}

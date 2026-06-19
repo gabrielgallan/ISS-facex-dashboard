@@ -1,25 +1,27 @@
 import { useSearchParams } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { Label } from '@/components/ui/label'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
 const dashboardViews = [
 	{
 		value: 'daily',
-		label: 'Diário',
+		labelKey: 'dashboards.filters.views.daily',
 	},
 	{
 		value: 'weekly',
-		label: 'Semanal',
+		labelKey: 'dashboards.filters.views.weekly',
 	},
 	{
 		value: 'monthly',
-		label: 'Mensal',
+		labelKey: 'dashboards.filters.views.monthly',
 	},
 ] as const
 
 type DashboardView = (typeof dashboardViews)[number]['value']
 
 export function DashboardViewToggle() {
+	const { t } = useTranslation()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const currentView = (searchParams.get('view') ?? 'daily') as DashboardView
@@ -39,7 +41,7 @@ export function DashboardViewToggle() {
 
 	return (
 		<div className="flex items-center gap-2">
-			<Label className="text-xs">Período</Label>
+			<Label className="text-xs">{t('dashboards.filters.labels.period')}</Label>
 
 			<ToggleGroup
 				type="single"
@@ -49,7 +51,7 @@ export function DashboardViewToggle() {
 			>
 				{dashboardViews.map((view) => (
 					<ToggleGroupItem key={view.value} value={view.value} className="text-xs font-medium">
-						{view.label}
+						{t(view.labelKey)}
 					</ToggleGroupItem>
 				))}
 			</ToggleGroup>

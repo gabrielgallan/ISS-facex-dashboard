@@ -1,4 +1,5 @@
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -6,13 +7,6 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
-
-const chartConfig = {
-	passages: {
-		label: 'Passagens',
-		color: '#0891b2',
-	},
-} satisfies ChartConfig
 
 interface ChartItem {
 	label: string
@@ -24,11 +18,19 @@ interface MovementTimelineChartProps {
 }
 
 export function MovementTimelineChart({ data }: MovementTimelineChartProps) {
+	const { t } = useTranslation()
+	const chartConfig = {
+		passages: {
+			label: t('dashboards.movement.charts.timeline.passages'),
+			color: '#0891b2',
+		},
+	} satisfies ChartConfig
+
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
 			<CardHeader>
-				<CardTitle>Tendência operacional</CardTitle>
-				<CardDescription>Evolução do fluxo total ao longo do período monitorado.</CardDescription>
+				<CardTitle>{t('dashboards.movement.charts.timeline.title')}</CardTitle>
+				<CardDescription>{t('dashboards.movement.charts.timeline.description')}</CardDescription>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">

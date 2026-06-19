@@ -1,0 +1,146 @@
+{
+	"navigation": {
+		"dashboards": "Dashboards",
+		"demographic": {
+			"title": "Dashboard Demográfico",
+			"description": "Visualize dados demográficos das detecções, como gênero, idade, horários de pico e volume de passagens."
+		},
+		"movement": {
+			"title": "Dashboard de Movimentação",
+			"description": "Acompanhe o fluxo por câmera, áreas de maior atividade e sinais operacionais de atenção."
+		},
+		"detections_history": "Histórico de Detecções"
+	},
+	"filters": {
+		"labels": {
+			"filters": "Filtros",
+			"cameras": "Câmeras"
+		},
+		"inputs": {
+			"select_cameras": "Selecionar câmeras",
+			"selected_cameras_one": "{{count}} selecionada",
+			"selected_cameras_other": "{{count}} selecionadas",
+			"loading_cameras": "Carregando câmeras...",
+			"no_cameras": "Nenhuma câmera disponível"
+		}
+	},
+	"dashboards": {
+		"filters": {
+			"labels": {
+				"period": "Período"
+			},
+			"buttons": {
+				"generate_dashboard": "Gerar Dashboard"
+			},
+			"views": {
+				"daily": "Diário",
+				"weekly": "Esta semana",
+				"monthly": "Este mês"
+			}
+		},
+		"demographic": {
+			"cards": {
+				"female": {
+					"title": "Total de mulheres",
+					"subtitle": "Gênero estimado",
+					"passages": "passagens",
+					"of_total": "Do total detectado"
+				},
+				"male": {
+					"title": "Total de homens",
+					"subtitle": "Gênero estimado",
+					"passages": "passagens",
+					"of_total": "Do total detectado"
+				},
+				"confidence": {
+					"title": "Confiança média",
+					"subtitle": "Das detecções faciais",
+					"average": "média",
+					"footer_text": "Baseada no score da API"
+				},
+				"total": {
+					"title": "Total de detecções",
+					"subtitle": "Período selecionado",
+					"passages": "passagens",
+					"footer_text": "Câmeras monitoradas",
+					"active_one": "{{count}} ativa",
+					"active_other": "{{count}} ativas"
+				}
+			},
+			"charts": {
+				"gender": {
+					"title": "Fluxo de passagens por gênero",
+					"subtitle": "Tendência de detecções masculinas e femininas ao longo do dia.",
+					"male": "Homem",
+					"female": "Mulher"
+				},
+				"age": {
+					"title": "Distribuição por faixa etária",
+					"subtitle": "Quantidade de detecções agrupadas por idade estimada.",
+					"passages": "Passagens"
+				}
+			}
+		},
+		"movement": {
+			"camera_ranking_table": {
+				"columns": {
+					"rank": "Rank",
+					"camera_name": "Nome da câmera",
+					"camera_id": "ID da câmera",
+					"passages": "Passagens",
+					"percent_of_total": "% do total"
+				}
+			},
+			"cards": {
+				"movement": {
+					"title": "Movimentação total",
+					"subtitle": "Período monitorado",
+					"footer_text": "Passagens consolidadas"
+				},
+				"most_active_camera": {
+					"title": "Câmera de pico",
+					"passages_one": "{{count}} passagem",
+					"passages_other": "{{count}} passagens"
+				},
+				"peak_hour": {
+					"title": "Horário de pico",
+					"subtitle": "Maior concentração",
+					"passages_one": "{{count}} passagem",
+					"passages_other": "{{count}} passagens"
+				},
+				"no_match_rate": {
+					"title": "Taxa de desconhecidos",
+					"subtitle": "Detecções sem correspondência",
+					"footer_text": "Sinal operacional de atenção"
+				}
+			},
+			"charts": {
+				"camera_ranking": {
+					"title": "Ranking de movimentação",
+					"description": "Volume de passagens agrupado por câmera monitorada.",
+					"passages": "Passagens"
+				},
+				"timeline": {
+					"title": "Tendência operacional",
+					"description": "Evolução do fluxo total ao longo do período monitorado.",
+					"passages": "Passagens"
+				}
+			}
+		}
+	},
+	"theme": {
+		"dark": "Escuro",
+		"light": "Claro",
+		"system": "Sistema"
+	},
+	"pagination": {
+		"total_items_one": "{{count}} item no total",
+		"total_items_other": "{{count}} itens no total",
+		"page_of": "Página {{page}} de {{pages}}",
+		"first_page": "Primeira página",
+		"previous_page": "Página anterior",
+		"next_page": "Próxima página",
+		"last_page": "Última página"
+	},
+	"no_data": "Sem dados"
+}
