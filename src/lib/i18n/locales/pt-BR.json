@@ -18,6 +18,9 @@
 		}
 	},
 	"dashboards": {
+		"buttons": {
+			"download_report": "Baixar relatório"
+		},
 		"filters": {
 			"labels": {
 				"period": "Período"

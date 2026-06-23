@@ -67,6 +67,8 @@ export function MovementDashboardPage() {
 
 	return (
 		<div className="space-y-4 p-4">
+			{/* <DashboardViewToggle /> */}
+
 			<DashboardFilters hasCamerasFilter={false} hasDayPicker isLoading={isLoading} />
 
 			<div className="grid gap-4 md:grid-cols-4">

@@ -21,7 +21,7 @@ function CameraRankingTableRow({ camera }: { camera: CameraRank }) {
 
 	return (
 		<TableRow>
-			<TableCell className="font-medium">{camera.rank}</TableCell>
+			<TableCell className="font-medium"># {camera.rank}</TableCell>
 
 			<TableCell className="font-medium">{camera.name}</TableCell>
 

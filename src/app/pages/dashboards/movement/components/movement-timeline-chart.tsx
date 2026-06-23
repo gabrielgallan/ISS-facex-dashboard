@@ -1,5 +1,5 @@
-import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import { useTranslation } from 'react-i18next'
+import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -7,6 +7,13 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 
 interface ChartItem {
 	label: string
@@ -28,9 +35,30 @@ export function MovementTimelineChart({ data }: MovementTimelineChartProps) {
 
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
-			<CardHeader>
-				<CardTitle>{t('dashboards.movement.charts.timeline.title')}</CardTitle>
-				<CardDescription>{t('dashboards.movement.charts.timeline.description')}</CardDescription>
+			<CardHeader className="flex justify-between">
+				<div>
+					<CardTitle>{t('dashboards.movement.charts.timeline.title')}</CardTitle>
+					<CardDescription>{t('dashboards.movement.charts.timeline.description')}</CardDescription>
+				</div>
+
+				<div>
+					<Select>
+						<SelectTrigger className="hidden w-40 sm:ml-auto sm:flex" aria-label="Select a value">
+							<SelectValue placeholder="Last 3 months" />
+						</SelectTrigger>
+						<SelectContent className="rounded-xl">
+							<SelectItem value="90d" className="rounded-lg">
+								Last 3 months
+							</SelectItem>
+							<SelectItem value="30d" className="rounded-lg">
+								Last 30 days
+							</SelectItem>
+							<SelectItem value="7d" className="rounded-lg">
+								Last 7 days
+							</SelectItem>
+						</SelectContent>
+					</Select>
+				</div>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">

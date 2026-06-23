@@ -1,5 +1,5 @@
-import { useSearchParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router-dom'
 import { Label } from '@/components/ui/label'
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 
@@ -34,6 +34,8 @@ export function DashboardViewToggle() {
 
 			url.delete('start')
 			url.delete('end')
+
+			url.delete('cameraId')
 
 			return url
 		})

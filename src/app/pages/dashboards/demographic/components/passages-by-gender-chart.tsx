@@ -5,6 +5,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import {
 	type ChartConfig,
 	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
@@ -87,6 +89,8 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 							fillOpacity={0.4}
 							stroke="var(--color-female)"
 						/>
+
+						<ChartLegend content={<ChartLegendContent />} className="flex justify-start" />
 					</AreaChart>
 				</ChartContainer>
 			</CardContent>

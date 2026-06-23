@@ -73,7 +73,7 @@ export function DashboardFilters({
 						/>
 					)}
 
-					<Button type="submit" variant="secondary" className="w-38 gap-2" disabled={isLoading}>
+					<Button type="submit" variant="secondary" disabled={isLoading}>
 						{isLoading ? (
 							<Loader2 className="animate-spin" />
 						) : (

@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
 import { Download } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { listDetections } from '@/api/facex/list-detections'
@@ -12,8 +13,8 @@ import { Button } from '@/components/ui/button'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
+import { DashboardViewToggle } from '../../../../components/dashboard-view-toggle'
 import { ConfidenceCard } from './components/confidence-card'
-import { DashboardViewToggle } from './components/dashboard-view-toggle'
 import { DetectionsAmountCard } from './components/detections-amount-card'
 import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
@@ -24,6 +25,7 @@ export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
 export function DemographicDashboardPage() {
 	const [searchParams, _setSearchParams] = useSearchParams()
+	const { t } = useTranslation()
 
 	const view = (searchParams.get('view') as DashboardViews) ?? 'daily'
 
@@ -94,7 +96,7 @@ export function DemographicDashboardPage() {
 
 				<Button onClick={handleDownloadReport} variant="secondary">
 					<Download className="size-4" />
-					Baixar relatório
+					{t('dashboards.buttons.download_report')}
 				</Button>
 			</div>
 
