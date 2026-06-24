@@ -1,0 +1,395 @@
+{
+	"_pagination": {
+		"next_link": "/v1/archive?action=list&limit=10&offset=10",
+		"prev_link": null,
+		"total_records": 37
+	},
+	"detections": [
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1981",
+				"detection_image": "/v1/archive/detection/1981/image"
+			},
+			"attributes": {
+				"facial_hair": "GM",
+				"glasses": "NONE",
+				"hair_color": "BROWN",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.24722221493721008,
+				"w": 0.10989583283662796,
+				"x": 0.5276041626930237,
+				"y": 0.3444444537162781
+			},
+			"confidence": 0.9993374943733215,
+			"demographics": {
+				"age": 46.0,
+				"ethnicity": "BLACK",
+				"gender": "MALE"
+			},
+			"emotion": "ANGER",
+			"feed": "2",
+			"id": 1981,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": {
+				"is_spoofing": false,
+				"score": 0.7838684320449829
+			},
+			"mask": "NO_MASK",
+			"no_match": true,
+			"pitch": -23.379125595092773,
+			"timestamp": "2026-06-24T19:26:42.033Z",
+			"track_finish_timestamp": "2026-06-24T19:26:43.632Z",
+			"track_start_timestamp": "2026-06-24T19:26:42.033Z",
+			"yaw": 5.884757041931152
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1980",
+				"detection_image": "/v1/archive/detection/1980/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLACK",
+				"hair_type": "NORMAL",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.32685184478759766,
+				"w": 0.12968750298023224,
+				"x": 0.5375000238418579,
+				"y": 0.19629628956317902
+			},
+			"confidence": 0.9991997480392456,
+			"demographics": {
+				"age": 23.0,
+				"ethnicity": "EAST_INDIAN",
+				"gender": "MALE"
+			},
+			"emotion": "NEUTRAL",
+			"feed": "2",
+			"id": 1980,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": {
+				"is_spoofing": true,
+				"score": 0.5517871379852295
+			},
+			"mask": "NO_MASK",
+			"no_match": true,
+			"pitch": -7.32387113571167,
+			"timestamp": "2026-06-24T19:23:37.266Z",
+			"track_finish_timestamp": "2026-06-24T19:23:38.833Z",
+			"track_start_timestamp": "2026-06-24T19:23:35.667Z",
+			"yaw": -2.3816490173339844
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1979",
+				"detection_image": "/v1/archive/detection/1979/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLOND",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.2537037134170532,
+				"w": 0.11041666567325592,
+				"x": 0.7244791388511658,
+				"y": 0.30092594027519226
+			},
+			"confidence": 0.9981747269630432,
+			"demographics": {
+				"age": 47.0,
+				"ethnicity": "EAST_INDIAN",
+				"gender": "MALE"
+			},
+			"emotion": "SADNESS",
+			"feed": "2",
+			"id": 1979,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": false,
+			"pitch": -5.252807140350342,
+			"timestamp": "2026-06-24T19:22:11.368Z",
+			"track_finish_timestamp": "2026-06-24T19:22:13.467Z",
+			"track_start_timestamp": "2026-06-24T19:22:11.368Z",
+			"yaw": -0.08005990833044052
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1978",
+				"detection_image": "/v1/archive/detection/1978/image"
+			},
+			"attributes": {
+				"facial_hair": "GOATEE",
+				"glasses": "NONE",
+				"hair_color": "BLOND",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.2916666567325592,
+				"w": 0.12083332985639572,
+				"x": 0.4572916626930237,
+				"y": 0.35462963581085205
+			},
+			"confidence": 0.9992559552192688,
+			"demographics": {
+				"age": 44.0,
+				"ethnicity": "BLACK",
+				"gender": "MALE"
+			},
+			"emotion": "ANGER",
+			"feed": "2",
+			"id": 1978,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": true,
+			"pitch": -18.965579986572266,
+			"timestamp": "2026-06-24T19:21:43.502Z",
+			"track_finish_timestamp": "2026-06-24T19:21:47.135Z",
+			"track_start_timestamp": "2026-06-24T19:21:43.502Z",
+			"yaw": -15.206635475158691
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1977",
+				"detection_image": "/v1/archive/detection/1977/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLACK",
+				"hair_type": "NORMAL",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.3296296298503876,
+				"w": 0.13124999403953552,
+				"x": 0.528124988079071,
+				"y": 0.19629628956317902
+			},
+			"confidence": 0.9992609024047852,
+			"demographics": {
+				"age": 27.0,
+				"ethnicity": "EAST_INDIAN",
+				"gender": "MALE"
+			},
+			"emotion": "NEUTRAL",
+			"feed": "2",
+			"id": 1977,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": true,
+			"pitch": -8.571234703063965,
+			"timestamp": "2026-06-24T19:18:37.835Z",
+			"track_finish_timestamp": "2026-06-24T19:18:39.935Z",
+			"track_start_timestamp": "2026-06-24T19:18:36.768Z",
+			"yaw": -0.46076926589012146
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1976",
+				"detection_image": "/v1/archive/detection/1976/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLACK",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.2648148238658905,
+				"w": 0.10989583283662796,
+				"x": 0.7895833253860474,
+				"y": 0.31388887763023376
+			},
+			"confidence": 0.9972371459007263,
+			"demographics": {
+				"age": 46.0,
+				"ethnicity": "CAUCASIAN",
+				"gender": "MALE"
+			},
+			"emotion": "SADNESS",
+			"feed": "2",
+			"id": 1976,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": false,
+			"pitch": -4.449896812438965,
+			"timestamp": "2026-06-24T19:17:12.568Z",
+			"track_finish_timestamp": "2026-06-24T19:17:14.134Z",
+			"track_start_timestamp": "2026-06-24T19:17:12.568Z",
+			"yaw": -0.6193192005157471
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1975",
+				"detection_image": "/v1/archive/detection/1975/image"
+			},
+			"attributes": {
+				"facial_hair": "GOATEE",
+				"glasses": "NONE",
+				"hair_color": "BROWN",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.2898148000240326,
+				"w": 0.1223958358168602,
+				"x": 0.45364582538604736,
+				"y": 0.35740742087364197
+			},
+			"confidence": 0.9991530179977417,
+			"demographics": {
+				"age": 45.0,
+				"ethnicity": "BLACK",
+				"gender": "MALE"
+			},
+			"emotion": "ANGER",
+			"feed": "2",
+			"id": 1975,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": true,
+			"pitch": -20.092777252197266,
+			"timestamp": "2026-06-24T19:16:44.569Z",
+			"track_finish_timestamp": "2026-06-24T19:16:48.235Z",
+			"track_start_timestamp": "2026-06-24T19:16:44.569Z",
+			"yaw": -15.507580757141113
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1974",
+				"detection_image": "/v1/archive/detection/1974/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLACK",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.3194444477558136,
+				"w": 0.12395833432674408,
+				"x": 0.33541667461395264,
+				"y": 0.16203702986240387
+			},
+			"confidence": 0.9993563890457153,
+			"demographics": {
+				"age": 28.0,
+				"ethnicity": "EAST_INDIAN",
+				"gender": "MALE"
+			},
+			"emotion": "NEUTRAL",
+			"feed": "2",
+			"id": 1974,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": true,
+			"pitch": -3.612550735473633,
+			"timestamp": "2026-06-24T19:13:38.103Z",
+			"track_finish_timestamp": "2026-06-24T19:13:40.736Z",
+			"track_start_timestamp": "2026-06-24T19:13:38.103Z",
+			"yaw": 1.0572545528411865
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1973",
+				"detection_image": "/v1/archive/detection/1973/image"
+			},
+			"attributes": {
+				"facial_hair": "BEARD",
+				"glasses": "NONE",
+				"hair_color": "BLACK",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "HOOD"
+			},
+			"bounding_box": {
+				"h": 0.2648148238658905,
+				"w": 0.10989583283662796,
+				"x": 0.8598958253860474,
+				"y": 0.38055557012557983
+			},
+			"confidence": 0.8987773656845093,
+			"demographics": {
+				"age": 43.0,
+				"ethnicity": "CAUCASIAN",
+				"gender": "MALE"
+			},
+			"emotion": "SADNESS",
+			"feed": "2",
+			"id": 1973,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": false,
+			"pitch": -12.921548843383789,
+			"timestamp": "2026-06-24T19:12:14.004Z",
+			"track_finish_timestamp": "2026-06-24T19:12:15.537Z",
+			"track_start_timestamp": "2026-06-24T19:12:14.004Z",
+			"yaw": 9.112455368041992
+		},
+		{
+			"_links": {
+				"_self": "/v1/archive/detection/1972",
+				"detection_image": "/v1/archive/detection/1972/image"
+			},
+			"attributes": {
+				"facial_hair": "GOATEE",
+				"glasses": "NONE",
+				"hair_color": "BROWN",
+				"hair_type": "HIGH_TEMPLE",
+				"headwear": "NO"
+			},
+			"bounding_box": {
+				"h": 0.3027777671813965,
+				"w": 0.1276041716337204,
+				"x": 0.4463541805744171,
+				"y": 0.35740742087364197
+			},
+			"confidence": 0.9993374943733215,
+			"demographics": {
+				"age": 47.0,
+				"ethnicity": "BLACK",
+				"gender": "MALE"
+			},
+			"emotion": "ANGER",
+			"feed": "2",
+			"id": 1972,
+			"is_mask_dressed_correctly": null,
+			"is_mask_dressed_correctly_confidence": null,
+			"liveness": null,
+			"mask": null,
+			"no_match": true,
+			"pitch": -21.087514877319336,
+			"timestamp": "2026-06-24T19:11:45.703Z",
+			"track_finish_timestamp": "2026-06-24T19:11:46.737Z",
+			"track_start_timestamp": "2026-06-24T19:11:45.703Z",
+			"yaw": -12.963470458984375
+		}
+	]
+}

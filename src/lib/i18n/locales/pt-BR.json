@@ -68,7 +68,13 @@
 					"title": "Fluxo de passagens por gênero",
 					"subtitle": "Tendência de detecções masculinas e femininas ao longo do dia.",
 					"male": "Homem",
-					"female": "Mulher"
+					"female": "Mulher",
+					"views": {
+						"genders": "Géneros",
+						"only_male": "Apenas género masculino",
+						"only_female": "Apenas género feminino",
+						"all_genders": "Todos os géneros"
+					}
 				},
 				"age": {
 					"title": "Distribuição por faixa etária",

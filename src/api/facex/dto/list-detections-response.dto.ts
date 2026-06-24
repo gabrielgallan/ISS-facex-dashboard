@@ -14,11 +14,11 @@ interface DetectionDemographicsDTO {
 
 export type GenderDTO = 'MALE' | 'FEMALE' | 'UNKNOWN'
 
-export type EthnicityDTO = 'CAUCASIAN' | 'BLACK' | 'ASIAN' | 'INDIAN' | 'HISPANIC' | 'UNKNOWN'
+export type EthnicityDTO = 'CAUCASIAN' | 'BLACK' | 'EAST_INDIAN' | 'UNKNOWN'
 
 export type FacialHairDTO = 'BEARD' | 'MUSTACHE' | 'SHAVED' | 'GM' | 'NONE' | 'UNKNOWN'
 
-export type GlassesDTO = 'NONE' | 'EYEGLASSES' | 'SUNGLASSES' | 'UNKNOWN'
+export type GlassesDTO = 'NONE' | 'USUAL'
 
 export type HairColorDTO =
 	| 'BLACK'
@@ -32,13 +32,20 @@ export type HairColorDTO =
 
 export type HairTypeDTO = 'NORMAL' | 'HIGH_TEMPLE' | 'BALD' | 'UNKNOWN'
 
-export type HeadwearDTO = 'YES' | 'NO' | 'UNKNOWN'
+export type HeadwearDTO = 'HOOD' | 'NO'
 
-export type DetectionEmotionDTO = 'ANGER' | 'SADNESS' | 'FEAR' | 'UNKNOWN'
+export type DetectionEmotionDTO =
+	| 'ANGER'
+	| 'SADNESS'
+	| 'FEAR'
+	| 'SURPRISE'
+	| 'NEUTRAL'
+	| 'HAPPINESS'
+	| 'UNKNOWN'
 
-export type DetectionLivenessDTO = unknown
+export type DetectionLivenessDTO = number
 
-export type DetectionMaskDTO = unknown
+export type DetectionMaskDTO = 'NO_MASK' | unknown
 
 export interface PaginationDTO {
 	next_link: string | null

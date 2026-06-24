@@ -1,6 +1,6 @@
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -10,6 +10,16 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 
 interface ChartItem {
 	label: string
@@ -21,8 +31,12 @@ interface PassagesByGenderChartProps {
 	data: ChartItem[]
 }
 
+type GenderFilter = 'all' | 'male' | 'female'
+
 export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 	const { t } = useTranslation()
+	const [genderFilter, setGenderFilter] = useState<GenderFilter>('all')
+
 	const chartConfig = {
 		male: {
 			label: t('dashboards.demographic.charts.gender.male'),
@@ -34,12 +48,54 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 		},
 	} satisfies ChartConfig
 
+	const shouldShowMale = genderFilter === 'all' || genderFilter === 'male'
+	const shouldShowFemale = genderFilter === 'all' || genderFilter === 'female'
+
 	return (
 		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
-			<CardHeader>
-				<CardTitle>{t('dashboards.demographic.charts.gender.title')}</CardTitle>
-				<CardDescription>{t('dashboards.demographic.charts.gender.subtitle')}</CardDescription>
+			<CardHeader className="flex justify-between">
+				<div>
+					<CardTitle>{t('dashboards.demographic.charts.gender.title')}</CardTitle>
+					<CardDescription>{t('dashboards.demographic.charts.gender.subtitle')}</CardDescription>
+				</div>
+
+				<div>
+					<Select
+						value={genderFilter}
+						onValueChange={(value) => setGenderFilter(value as GenderFilter)}
+					>
+						<SelectTrigger className="hidden w-56 sm:ml-auto sm:flex">
+							<SelectValue placeholder="Selecione o gênero" />
+						</SelectTrigger>
+
+						<SelectContent className="border">
+							<SelectGroup>
+								<SelectLabel>{t('dashboards.demographic.charts.gender.views.genders')}</SelectLabel>
+								<SelectSeparator />
+
+								<SelectItem value="male">
+									<div className="flex items-center gap-2">
+										<span className="size-2 rounded-xs bg-blue-500" />
+										{t('dashboards.demographic.charts.gender.views.only_male')}
+									</div>
+								</SelectItem>
+
+								<SelectItem value="female">
+									<div className="flex items-center gap-2">
+										<span className="size-2 rounded-xs bg-rose-500" />
+										{t('dashboards.demographic.charts.gender.views.only_female')}
+									</div>
+								</SelectItem>
+
+								<SelectItem value="all">
+									{t('dashboards.demographic.charts.gender.views.all_genders')}
+								</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 			</CardHeader>
+
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
 					<AreaChart
@@ -74,21 +130,25 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 							</linearGradient>
 						</defs>
 
-						<Area
-							dataKey="male"
-							type="monotone"
-							fill="url(#fillmale)"
-							fillOpacity={0.4}
-							stroke="var(--color-male)"
-						/>
+						{shouldShowMale && (
+							<Area
+								dataKey="male"
+								type="monotone"
+								fill="url(#fillmale)"
+								fillOpacity={0.4}
+								stroke="var(--color-male)"
+							/>
+						)}
 
-						<Area
-							dataKey="female"
-							type="monotone"
-							fill="url(#fillfemale)"
-							fillOpacity={0.4}
-							stroke="var(--color-female)"
-						/>
+						{shouldShowFemale && (
+							<Area
+								dataKey="female"
+								type="monotone"
+								fill="url(#fillfemale)"
+								fillOpacity={0.4}
+								stroke="var(--color-female)"
+							/>
+						)}
 
 						<ChartLegend content={<ChartLegendContent />} className="flex justify-start" />
 					</AreaChart>

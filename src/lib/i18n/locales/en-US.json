@@ -68,7 +68,13 @@
 					"title": "Passage flow by gender",
 					"subtitle": "Trend of male and female detections throughout the day.",
 					"male": "Man",
-					"female": "Woman"
+					"female": "Woman",
+					"views": {
+						"genders": "Genders",
+						"only_male": "Only male",
+						"only_female": "Only female",
+						"all_genders": "All genders"
+					}
 				},
 				"age": {
 					"title": "Distribution by age group",

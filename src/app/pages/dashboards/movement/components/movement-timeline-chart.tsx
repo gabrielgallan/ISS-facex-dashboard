@@ -42,20 +42,14 @@ export function MovementTimelineChart({ data }: MovementTimelineChartProps) {
 				</div>
 
 				<div>
-					<Select>
-						<SelectTrigger className="hidden w-40 sm:ml-auto sm:flex" aria-label="Select a value">
-							<SelectValue placeholder="Last 3 months" />
+					<Select defaultValue="all">
+						<SelectTrigger className="hidden w-40 sm:ml-auto sm:flex">
+							<SelectValue placeholder="Selecione as câmeras" />
 						</SelectTrigger>
-						<SelectContent className="rounded-xl">
-							<SelectItem value="90d" className="rounded-lg">
-								Last 3 months
-							</SelectItem>
-							<SelectItem value="30d" className="rounded-lg">
-								Last 30 days
-							</SelectItem>
-							<SelectItem value="7d" className="rounded-lg">
-								Last 7 days
-							</SelectItem>
+						<SelectContent className="border">
+							<SelectItem value="1">Câmera 1</SelectItem>
+							<SelectItem value="2">Câmera 2</SelectItem>
+							<SelectItem value="all">Todas as câmeras</SelectItem>
 						</SelectContent>
 					</Select>
 				</div>
