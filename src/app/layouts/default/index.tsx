@@ -1,12 +1,12 @@
 import { Outlet } from 'react-router-dom'
-import { Header } from '@/components/header'
+import { Sidebar } from '@/components/sidebar'
 
 export function DefaultLayout() {
 	return (
-		<div className="flex flex-col min-h-screen antialiased">
-			<Header />
+		<div className="flex min-h-screen antialiased">
+			<Sidebar />
 
-			<main>
+			<main className="flex w-full">
 				<Outlet />
 			</main>
 		</div>

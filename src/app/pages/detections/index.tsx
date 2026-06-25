@@ -47,7 +47,7 @@ export function DetectionsPage() {
 	}
 
 	return (
-		<div className="space-y-4 gap-4 p-4">
+		<div className="flex flex-col gap-4 w-full p-4">
 			<DetectionsTableFilters />
 
 			<div className="overflow-hidden rounded-md border">
