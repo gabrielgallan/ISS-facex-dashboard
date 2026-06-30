@@ -1,11 +1,13 @@
 import { format, parseISO } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
 import { ScanFace } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { DetectionDTO } from '@/api/facex/dto/list-detections-response.dto'
 import { TableCell, TableRow } from '@/components/ui/table'
 import { env } from '@/env'
+import { getLocaleModules } from '@/utils/get-locale-modules'
 import {
+	emotionLabels,
 	ethnicityLabels,
 	facialHairLabels,
 	genderLabels,
@@ -20,18 +22,24 @@ interface DetectionsTableRowProps {
 }
 
 export function DetectionsTableRow({ detection }: DetectionsTableRowProps) {
+	const { t, i18n } = useTranslation()
 	const [imageFailed, setImageFailed] = useState(false)
 
 	const timestamp = parseISO(detection.timestamp)
+	const { dateFns } = getLocaleModules(i18n.language)
 
 	const imageUrl = new URL(detection._links.detection_image, env.VITE_FACEX_API_URL).toString()
 
 	const age = Math.round(detection.demographics.age)
 
-	const confidence = detection.confidence.toLocaleString('en-US', {
+	const confidence = detection.confidence.toLocaleString(i18n.language, {
 		style: 'percent',
 		maximumFractionDigits: 1,
 	})
+
+	const emotion = detection.emotion
+		? t(emotionLabels[detection.emotion])
+		: t('detections.table.row.emotion_unavailable')
 
 	return (
 		<TableRow>
@@ -39,13 +47,13 @@ export function DetectionsTableRow({ detection }: DetectionsTableRowProps) {
 				{imageFailed ? (
 					<div className="flex size-12 items-center justify-center rounded-md border bg-muted text-muted-foreground">
 						<ScanFace className="size-5" aria-hidden="true" />
-						<span className="sr-only">Imagem da face indisponível</span>
+						<span className="sr-only">{t('detections.table.row.face_image_unavailable')}</span>
 					</div>
 				) : (
 					<img
 						src={imageUrl}
 						className="size-12 rounded-sm border bg-muted object-cover"
-						alt={`Face da detecção ${detection.id}`}
+						alt={t('detections.table.row.face_image_alt', { id: detection.id })}
 						onError={() => setImageFailed(true)}
 					/>
 				)}
@@ -54,16 +62,20 @@ export function DetectionsTableRow({ detection }: DetectionsTableRowProps) {
 			<TableCell>
 				<div className="flex flex-col gap-1.5">
 					<div className="flex items-center gap-2">
-						<span className="font-medium">{genderLabels[detection.demographics.gender]}</span>
+						<span className="font-medium">{t(genderLabels[detection.demographics.gender])}</span>
 
 						<span className="rounded-md border bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-							{age} anos
+							{t('detections.table.row.age', { count: age })}
 						</span>
 					</div>
 
 					<div className="w-fit text-xs">
-						<span className="text-muted-foreground">Etnia estimada: </span>
-						<span className="font-medium">{ethnicityLabels[detection.demographics.ethnicity]}</span>
+						<span className="text-muted-foreground">
+							{t('detections.table.row.estimated_ethnicity')}{' '}
+						</span>
+						<span className="font-medium">
+							{t(ethnicityLabels[detection.demographics.ethnicity])}
+						</span>
 					</div>
 				</div>
 			</TableCell>
@@ -71,48 +83,54 @@ export function DetectionsTableRow({ detection }: DetectionsTableRowProps) {
 			<TableCell>
 				<div className="flex max-w-80 flex-wrap gap-1.5">
 					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
-						<span className="text-muted-foreground">Cabelo: </span>
-						<span className="font-medium">{hairColorLabels[detection.attributes.hair_color]}</span>
-					</div>
-
-					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
-						<span className="text-muted-foreground">Tipo: </span>
-						<span className="font-medium">{hairTypeLabels[detection.attributes.hair_type]}</span>
-					</div>
-
-					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
-						<span className="text-muted-foreground">Óculos: </span>
-						<span className="font-medium">{glassesLabels[detection.attributes.glasses]}</span>
-					</div>
-
-					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
-						<span className="text-muted-foreground">Facial: </span>
+						<span className="text-muted-foreground">{t('detections.table.row.hair')} </span>
 						<span className="font-medium">
-							{facialHairLabels[detection.attributes.facial_hair]}
+							{t(hairColorLabels[detection.attributes.hair_color])}
 						</span>
 					</div>
 
 					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
-						<span className="text-muted-foreground">Atributos na cabeça: </span>
-						<span className="font-medium">{headwearLabels[detection.attributes.headwear]}</span>
+						<span className="text-muted-foreground">{t('detections.table.row.hair_type')} </span>
+						<span className="font-medium">{t(hairTypeLabels[detection.attributes.hair_type])}</span>
+					</div>
+
+					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
+						<span className="text-muted-foreground">{t('detections.table.row.glasses')} </span>
+						<span className="font-medium">{t(glassesLabels[detection.attributes.glasses])}</span>
+					</div>
+
+					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
+						<span className="text-muted-foreground">{t('detections.table.row.facial_hair')} </span>
+						<span className="font-medium">
+							{t(facialHairLabels[detection.attributes.facial_hair])}
+						</span>
+					</div>
+
+					<div className="rounded-md border bg-muted/40 px-2.5 py-1 text-xs">
+						<span className="text-muted-foreground">{t('detections.table.row.headwear')} </span>
+						<span className="font-medium">{t(headwearLabels[detection.attributes.headwear])}</span>
 					</div>
 				</div>
 			</TableCell>
 
 			<TableCell>
 				<div className="flex flex-col gap-1">
-					<span className="text-sm font-medium">Não disponível</span>
-					<span className="text-xs text-muted-foreground">Emoção ainda não mapeada</span>
+					<span className="text-sm font-medium">{emotion}</span>
+					<span className="text-xs text-muted-foreground">
+						{t('detections.table.row.estimated_emotion')}
+					</span>
 				</div>
 			</TableCell>
 
 			<TableCell>
-				<span className="text-sm">Câmera {detection.feed}</span>
+				<span className="text-sm">
+					{t('detections.table.row.camera', { feed: detection.feed })}
+				</span>
 			</TableCell>
 
 			<TableCell className="text-right">
 				<span className="text-xs text-muted-foreground">
-					{format(timestamp, "dd/MM/yyyy 'às' HH:mm:ss", { locale: ptBR })}
+					{format(timestamp, t('detections.table.row.timestamp_format'), { locale: dateFns })}
 				</span>
 			</TableCell>
 

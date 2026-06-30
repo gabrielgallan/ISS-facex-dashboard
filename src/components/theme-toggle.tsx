@@ -8,8 +8,13 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { cn } from '@/lib/utils'
 
-export function ThemeToggle() {
+type ThemeToggleProps = {
+	compact?: boolean
+}
+
+export function ThemeToggle({ compact = false }: ThemeToggleProps) {
 	const { t } = useTranslation()
 
 	const [theme, setThemeState] = React.useState<'theme-light' | 'dark' | 'system'>('theme-light')
@@ -29,13 +34,20 @@ export function ThemeToggle() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="outline" size="icon">
-					<Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-					<Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+				<Button
+					variant="outline"
+					size={compact ? 'icon' : 'default'}
+					className={cn(!compact && 'justify-start')}
+				>
+					<span className="relative flex size-4 items-center justify-center">
+						<Sun className="absolute size-4 scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+						<Moon className="absolute size-4 scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+					</span>
+					{/* {!compact && <span>{currentThemeLabel}</span>} */}
 					<span className="sr-only">Toggle theme</span>
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align="end">
+			<DropdownMenuContent>
 				<DropdownMenuItem onClick={() => setThemeState('theme-light')}>
 					{t('theme.light')}
 				</DropdownMenuItem>

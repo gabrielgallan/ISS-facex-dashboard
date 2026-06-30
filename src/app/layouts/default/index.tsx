@@ -3,12 +3,14 @@ import { Sidebar } from '@/components/sidebar'
 
 export function DefaultLayout() {
 	return (
-		<div className="flex min-h-screen antialiased">
-			<Sidebar />
+		
+				<div className="flex min-h-screen antialiased">
+					<Sidebar />
 
-			<main className="flex w-full">
-				<Outlet />
-			</main>
-		</div>
+				<main className="flex w-full">
+					<Outlet />
+				</main>
+				</div>
+
 	)
 }

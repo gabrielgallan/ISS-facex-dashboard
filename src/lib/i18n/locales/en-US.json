@@ -10,11 +10,13 @@
 			"cameras": "Cameras"
 		},
 		"inputs": {
+			"select_date_range": "Select range",
 			"select_cameras": "Select cameras",
 			"selected_cameras_one": "{{count}} selected",
 			"selected_cameras_other": "{{count}} selected",
 			"loading_cameras": "Loading cameras...",
-			"no_cameras": "No cameras available"
+			"no_cameras": "No cameras available",
+			"search": "Search"
 		}
 	},
 	"dashboards": {
@@ -127,6 +129,86 @@
 					"description": "Total flow over the monitored period.",
 					"passages": "Passages"
 				}
+			}
+		}
+	},
+	"detections": {
+		"table": {
+			"columns": {
+				"face": "Face",
+				"profile": "Estimated profile",
+				"facial_attributes": "Facial attributes",
+				"emotion": "Estimated emotion",
+				"camera": "Camera",
+				"timestamp": "Date/Time",
+				"confidence": "Confidence"
+			},
+			"row": {
+				"age_one": "{{count}} year old",
+				"age_other": "{{count}} years old",
+				"estimated_ethnicity": "Estimated ethnicity:",
+				"hair": "Hair:",
+				"hair_type": "Type:",
+				"glasses": "Glasses:",
+				"facial_hair": "Facial:",
+				"headwear": "Headwear:",
+				"estimated_emotion": "Estimated emotion",
+				"emotion_unavailable": "Unavailable",
+				"camera": "Camera {{feed}}",
+				"timestamp_format": "MM/dd/yyyy 'at' HH:mm:ss",
+				"face_image_alt": "Detection {{id}} face",
+				"face_image_unavailable": "Face image unavailable"
+			}
+		},
+		"labels": {
+			"gender": {
+				"male": "Male",
+				"female": "Female",
+				"unknown": "Unknown"
+			},
+			"ethnicity": {
+				"caucasian": "Caucasian",
+				"black": "Black",
+				"east_indian": "East Indian",
+				"unknown": "Unknown"
+			},
+			"facial_hair": {
+				"beard": "Beard",
+				"mustache": "Mustache",
+				"goatee": "Goatee",
+				"goatee_mustache": "Goatee/mustache",
+				"bristle": "Stubble",
+				"unknown": "Unknown"
+			},
+			"glasses": {
+				"none": "No glasses",
+				"usual": "Eyeglasses",
+				"unknown": "Unknown"
+			},
+			"hair_color": {
+				"black": "Black",
+				"brown": "Brown",
+				"blond": "Blond",
+				"unknown": "Unknown"
+			},
+			"hair_type": {
+				"normal": "Normal",
+				"high_temple": "High temples",
+				"unknown": "Unknown"
+			},
+			"headwear": {
+				"hood": "Hood",
+				"no": "No",
+				"unknown": "Unknown"
+			},
+			"emotion": {
+				"anger": "Anger",
+				"sadness": "Sadness",
+				"fear": "Fear",
+				"surprise": "Surprise",
+				"neutral": "Neutral",
+				"happiness": "Happiness",
+				"unknown": "Unknown"
 			}
 		}
 	},

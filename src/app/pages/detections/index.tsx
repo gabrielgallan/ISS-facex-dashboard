@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
 import { listDetections } from '@/api/facex/list-detections'
 import { Pagination } from '@/components/pagination'
@@ -8,6 +9,7 @@ import { DetectionsTableRow } from './components/detection-table-row'
 import { DetectionsTableFilters } from './components/detections-table-filters'
 
 export function DetectionsPage() {
+	const { t } = useTranslation()
 	const [searchParams, setSearchParams] = useSearchParams()
 
 	const start = searchParams.get('start') ?? format(new Date(), 'yyyy-MM-dd')
@@ -54,13 +56,17 @@ export function DetectionsPage() {
 				<Table>
 					<TableHeader>
 						<TableRow>
-							<TableHead className="w-16">Face</TableHead>
-							<TableHead>Perfil estimado</TableHead>
-							<TableHead>Atributos faciais</TableHead>
-							<TableHead>Emoção estimada</TableHead>
-							<TableHead>Câmera</TableHead>
-							<TableHead className="w-62 text-right">Data/Horário</TableHead>
-							<TableHead className="text-right">Confiança</TableHead>
+							<TableHead className="w-16">{t('detections.table.columns.face')}</TableHead>
+							<TableHead>{t('detections.table.columns.profile')}</TableHead>
+							<TableHead>{t('detections.table.columns.facial_attributes')}</TableHead>
+							<TableHead>{t('detections.table.columns.emotion')}</TableHead>
+							<TableHead>{t('detections.table.columns.camera')}</TableHead>
+							<TableHead className="w-62 text-right">
+								{t('detections.table.columns.timestamp')}
+							</TableHead>
+							<TableHead className="text-right">
+								{t('detections.table.columns.confidence')}
+							</TableHead>
 						</TableRow>
 					</TableHeader>
 

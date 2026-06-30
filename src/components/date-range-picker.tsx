@@ -14,7 +14,7 @@ interface DateRangePickerProps {
 }
 
 export function DateRangePicker({ value, onChange }: DateRangePickerProps) {
-	const { i18n } = useTranslation()
+	const { i18n, t } = useTranslation()
 
 	const { dayPicker } = getLocaleModules(i18n.language)
 
@@ -33,13 +33,13 @@ export function DateRangePicker({ value, onChange }: DateRangePickerProps) {
 						{value?.from ? (
 							value.to ? (
 								<>
-									{format(value.from, 'dd/MM/yyyy')} - {format(value.to, 'dd/MM/yyyy')}
+									{format(value.from, 'PPP')} - {format(value.to, 'PPP')}
 								</>
 							) : (
-								format(value.from, 'dd/MM/yyyy')
+								format(value.from, 'PPP')
 							)
 						) : (
-							<span>Selecionar período</span>
+							<span>{t('filteers.inputs.select_date_range')}</span>
 						)}
 					</Button>
 				</PopoverTrigger>

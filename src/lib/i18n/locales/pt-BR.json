@@ -10,11 +10,13 @@
 			"cameras": "Câmeras"
 		},
 		"inputs": {
+			"select_date_range": "Selecionar período",
 			"select_cameras": "Selecionar câmeras",
 			"selected_cameras_one": "{{count}} selecionada",
 			"selected_cameras_other": "{{count}} selecionadas",
 			"loading_cameras": "Carregando câmeras...",
-			"no_cameras": "Nenhuma câmera disponível"
+			"no_cameras": "Nenhuma câmera disponível",
+			"search": "Pesquisar"
 		}
 	},
 	"dashboards": {
@@ -127,6 +129,86 @@
 					"description": "Evolução do fluxo total ao longo do período monitorado.",
 					"passages": "Passagens"
 				}
+			}
+		}
+	},
+	"detections": {
+		"table": {
+			"columns": {
+				"face": "Face",
+				"profile": "Perfil estimado",
+				"facial_attributes": "Atributos faciais",
+				"emotion": "Emoção estimada",
+				"camera": "Câmera",
+				"timestamp": "Data/Horário",
+				"confidence": "Confiança"
+			},
+			"row": {
+				"age_one": "{{count}} ano",
+				"age_other": "{{count}} anos",
+				"estimated_ethnicity": "Etnia estimada:",
+				"hair": "Cabelo:",
+				"hair_type": "Tipo:",
+				"glasses": "Óculos:",
+				"facial_hair": "Facial:",
+				"headwear": "Atributos na cabeça:",
+				"estimated_emotion": "Emoção estimada",
+				"emotion_unavailable": "Não disponível",
+				"camera": "Câmera {{feed}}",
+				"timestamp_format": "dd/MM/yyyy 'às' HH:mm:ss",
+				"face_image_alt": "Face da detecção {{id}}",
+				"face_image_unavailable": "Imagem da face indisponível"
+			}
+		},
+		"labels": {
+			"gender": {
+				"male": "Masculino",
+				"female": "Feminino",
+				"unknown": "Não identificado"
+			},
+			"ethnicity": {
+				"caucasian": "Caucasiana",
+				"black": "Negra",
+				"east_indian": "Indiana oriental",
+				"unknown": "Não identificada"
+			},
+			"facial_hair": {
+				"beard": "Barba",
+				"mustache": "Bigode",
+				"goatee": "Cavanhaque",
+				"goatee_mustache": "Cavanhaque/bigode",
+				"bristle": "Barba por fazer",
+				"unknown": "Não identificado"
+			},
+			"glasses": {
+				"none": "Sem óculos",
+				"usual": "Óculos de grau",
+				"unknown": "Não identificado"
+			},
+			"hair_color": {
+				"black": "Preto",
+				"brown": "Castanho",
+				"blond": "Loiro",
+				"unknown": "Não identificado"
+			},
+			"hair_type": {
+				"normal": "Normal",
+				"high_temple": "Entradas pronunciadas",
+				"unknown": "Não identificado"
+			},
+			"headwear": {
+				"hood": "Capuz",
+				"no": "Não",
+				"unknown": "Não identificado"
+			},
+			"emotion": {
+				"anger": "Raiva",
+				"sadness": "Tristeza",
+				"fear": "Medo",
+				"surprise": "Surpresa",
+				"neutral": "Neutra",
+				"happiness": "Felicidade",
+				"unknown": "Não identificada"
 			}
 		}
 	},

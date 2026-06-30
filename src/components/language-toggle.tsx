@@ -1,6 +1,7 @@
 import { Check, ChevronsUpDown, Languages } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import type { SupportedLanguages } from '@/lib/i18n'
+import { cn } from '@/lib/utils'
 import { Button } from './ui/button'
 import {
 	DropdownMenu,
@@ -16,7 +17,11 @@ const languages: Record<SupportedLanguages, { label: string }> = {
 
 type Language = keyof typeof languages
 
-export function LanguageToggle() {
+type LanguageToggleProps = {
+	compact?: boolean
+}
+
+export function LanguageToggle({ compact = false }: LanguageToggleProps) {
 	const { i18n } = useTranslation()
 
 	const currentLanguage = i18n.language as Language
@@ -30,15 +35,23 @@ export function LanguageToggle() {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant="outline">
-					<Languages className="size-4" />
-					<span>{languages[currentLanguage].label ?? 'Idioma'}</span>
+				<Button
+					variant="outline"
+					size={compact ? 'icon' : 'default'}
+					className={cn(!compact && 'flex justify-between')}
+				>
+					<div className="flex gap-2 items-center">
+						<Languages className="size-4" />
+						<span className={cn(compact && 'sr-only')}>
+							{languages[currentLanguage].label ?? 'Idioma'}
+						</span>
+					</div>
 
-					<ChevronsUpDown className="size-4 text-muted-foreground" />
+					{!compact && <ChevronsUpDown className="size-4 text-muted-foreground" />}
 				</Button>
 			</DropdownMenuTrigger>
 
-			<DropdownMenuContent align="end">
+			<DropdownMenuContent>
 				{Object.entries(languages).map(([language, option]) => {
 					const isSelected = currentLanguage === language
 
