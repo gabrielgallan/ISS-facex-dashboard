@@ -72,10 +72,10 @@
 					"male": "Homem",
 					"female": "Mulher",
 					"views": {
-						"genders": "Géneros",
-						"only_male": "Apenas género masculino",
-						"only_female": "Apenas género feminino",
-						"all_genders": "Todos os géneros"
+						"genders": "Gêneros",
+						"only_male": "Apenas gênero masculino",
+						"only_female": "Apenas gênero feminino",
+						"all_genders": "Todos os gênero"
 					}
 				},
 				"age": {

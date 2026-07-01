@@ -1,16 +1,36 @@
+import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import { Sidebar } from '@/components/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+
+const SIDEBAR_COLLAPSED_STORAGE_KEY = 'sidebar-collapsed'
 
 export function DefaultLayout() {
+	const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+		if (typeof window === 'undefined') {
+			return true
+		}
+
+		return localStorage.getItem(SIDEBAR_COLLAPSED_STORAGE_KEY) !== 'true'
+	})
+
+	function handleSidebarOpenChange(open: boolean) {
+		setIsSidebarOpen(open)
+
+		localStorage.setItem(SIDEBAR_COLLAPSED_STORAGE_KEY, String(!open))
+	}
+
 	return (
-		
-				<div className="flex min-h-screen antialiased">
-					<Sidebar />
+		<SidebarProvider open={isSidebarOpen} onOpenChange={handleSidebarOpenChange}>
+			<div className="flex w-full min-h-screen antialiased">
+				<AppSidebar />
 
-				<main className="flex w-full">
-					<Outlet />
-				</main>
-				</div>
-
+				<SidebarInset>
+					<main>
+						<Outlet />
+					</main>
+				</SidebarInset>
+			</div>
+		</SidebarProvider>
 	)
 }

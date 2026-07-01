@@ -38,7 +38,7 @@ export function LanguageToggle({ compact = false }: LanguageToggleProps) {
 				<Button
 					variant="outline"
 					size={compact ? 'icon' : 'default'}
-					className={cn(!compact && 'flex justify-between')}
+					className={cn(!compact && 'flex-1 justify-between')}
 				>
 					<div className="flex gap-2 items-center">
 						<Languages className="size-4" />

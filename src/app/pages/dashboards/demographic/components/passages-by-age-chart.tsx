@@ -1,3 +1,5 @@
+import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
 	Bar,
 	BarChart,
@@ -7,8 +9,6 @@ import {
 	Rectangle,
 	XAxis,
 } from 'recharts'
-import { useTranslation } from 'react-i18next'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
@@ -16,6 +16,16 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
+import {
+	Select,
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectSeparator,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
 
 export const description = 'A stacked bar chart with a legend'
 
@@ -38,9 +48,14 @@ function getHighestPassagesIndex(data: ChartItem[]) {
 	}, 0)
 }
 
+type ChartView = 'default' | 'by_genders'
+
 export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 	const { t } = useTranslation()
 	const activeIndex = getHighestPassagesIndex(data)
+
+	const [view, setView] = useState<ChartView>('default')
+
 	const chartConfig = {
 		passages: {
 			label: t('dashboards.demographic.charts.age.passages'),
@@ -50,11 +65,30 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 
 	return (
 		<Card className="flex md:col-span-4 min-h-0 flex-col overflow-hidden">
-			<CardHeader>
-				<CardTitle>{t('dashboards.demographic.charts.age.title')}</CardTitle>
-				<CardDescription>
-					{t('dashboards.demographic.charts.age.subtitle')}
-				</CardDescription>
+			<CardHeader className="flex justify-between">
+				<div>
+					<CardTitle>{t('dashboards.demographic.charts.age.title')}</CardTitle>
+					<CardDescription>{t('dashboards.demographic.charts.age.subtitle')}</CardDescription>
+				</div>
+
+				<div>
+					<Select value={view} onValueChange={(value) => setView(value as ChartView)}>
+						<SelectTrigger className="hidden w-42 sm:ml-auto sm:flex">
+							<SelectValue placeholder="Selecione a view" />
+						</SelectTrigger>
+
+						<SelectContent className="border">
+							<SelectGroup>
+								<SelectLabel>View</SelectLabel>
+								<SelectSeparator />
+
+								<SelectItem value="default">Default</SelectItem>
+
+								<SelectItem value="by_gender">By gender</SelectItem>
+							</SelectGroup>
+						</SelectContent>
+					</Select>
+				</div>
 			</CardHeader>
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
@@ -71,32 +105,36 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 
 						<ChartTooltip cursor={false} content={<ChartTooltipContent hideLabel />} />
 
-						<Bar
-							dataKey="passages"
-							fill="var(--color-passages)"
-							shape={({ index, ...props }: BarShapeProps) =>
-								index === activeIndex ? (
-									<Rectangle
-										{...props}
-										fill="var(--color-passages)"
-										fillOpacity={1}
-										stroke="var(--foreground)"
-										strokeWidth={2}
-										strokeDasharray={4}
-										radius={8}
-									/>
-								) : (
-									<Rectangle
-										{...props}
-										fill="var(--color-passages)"
-										fillOpacity={0.45}
-										radius={8}
-									/>
-								)
-							}
-						>
-							<LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
-						</Bar>
+						{view === 'default' && (
+							<Bar
+								dataKey="passages"
+								fill="var(--color-passages)"
+								shape={({ index, ...props }: BarShapeProps) =>
+									index === activeIndex ? (
+										<Rectangle
+											{...props}
+											fill="var(--color-passages)"
+											fillOpacity={1}
+											stroke="var(--foreground)"
+											strokeWidth={2}
+											strokeDasharray={4}
+											radius={8}
+										/>
+									) : (
+										<Rectangle
+											{...props}
+											fill="var(--color-passages)"
+											fillOpacity={0.45}
+											radius={8}
+										/>
+									)
+								}
+							>
+								<LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
+							</Bar>
+						)}
+
+						{view === 'by_genders' && <></>}
 					</BarChart>
 				</ChartContainer>
 			</CardContent>

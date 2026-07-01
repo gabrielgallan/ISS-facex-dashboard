@@ -8,7 +8,6 @@ import { listDetections } from '@/api/facex/list-detections'
 import { getCameras } from '@/api/server/get-cameras'
 import { DashboardFilters } from '@/components/dashboard-filters'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
-import { ChartSkeleton } from '@/components/skeletons/chart-skeleton'
 import { Button } from '@/components/ui/button'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
@@ -20,6 +19,7 @@ import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
+import { chartMock } from './dashboard.mock'
 
 export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
@@ -119,17 +119,8 @@ export function DemographicDashboardPage() {
 			</div>
 
 			<div className="grid gap-4 md:grid-cols-9 h-100">
-				{isLoading ? (
-					<>
-						<ChartSkeleton className="col-span-5" />
-						<ChartSkeleton className="col-span-4" />
-					</>
-				) : (
-					<>
-						<PassagesByGenderChart data={charts.gender} />
-						<PassagesByAgeChart data={charts.age} />
-					</>
-				)}
+				<PassagesByGenderChart data={chartMock.gender} />
+				<PassagesByAgeChart data={chartMock.age} />
 			</div>
 		</div>
 	)

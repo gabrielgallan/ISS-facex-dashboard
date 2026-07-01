@@ -1,7 +1,7 @@
 {
 	"navigation": {
-		"demographic_dashboard": "Demographic Dashboard",
-		"movement_dashboard": "Movement Dashboard",
+		"demographic_dashboard": "Demography",
+		"movement_dashboard": "Occupation",
 		"detections_history": "Detection History"
 	},
 	"filters": {
