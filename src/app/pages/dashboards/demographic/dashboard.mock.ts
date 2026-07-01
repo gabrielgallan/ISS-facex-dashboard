@@ -31,11 +31,11 @@ export const chartMock = {
 		{ label: '18h', male: 48, female: 37 },
 	],
 	age: [
-		{ age: '0-17', passages: 72 },
-		{ age: '18-24', passages: 186 },
-		{ age: '25-34', passages: 342 },
-		{ age: '35-44', passages: 418 },
-		{ age: '45-54', passages: 241 },
-		{ age: '55+', passages: 91 },
+		{ age: '0-17', male: 49, female: 23, total: 72 },
+		{ age: '18-24', male: 112, female: 74, total: 186 },
+		{ age: '25-34', male: 201, female: 141, total: 342 },
+		{ age: '35-44', male: 246, female: 172, total: 418 },
+		{ age: '45-54', male: 138, female: 103, total: 241 },
+		{ age: '55+', male: 36, female: 55, total: 91 },
 	],
 }

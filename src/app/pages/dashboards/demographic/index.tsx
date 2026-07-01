@@ -9,17 +9,18 @@ import { getCameras } from '@/api/server/get-cameras'
 import { DashboardFilters } from '@/components/dashboard-filters'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
 import { Button } from '@/components/ui/button'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
 import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
 import { DashboardViewToggle } from '../../../../components/dashboard-view-toggle'
 import { ConfidenceCard } from './components/confidence-card'
 import { DetectionsAmountCard } from './components/detections-amount-card'
+import { EthnicityChart } from './components/ethnicity-chart'
 import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
-import { chartMock } from './dashboard.mock'
 
 export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
@@ -119,9 +120,24 @@ export function DemographicDashboardPage() {
 			</div>
 
 			<div className="grid gap-4 md:grid-cols-9 h-100">
-				<PassagesByGenderChart data={chartMock.gender} />
-				<PassagesByAgeChart data={chartMock.age} />
+				<PassagesByGenderChart data={charts.gender} />
+				<PassagesByAgeChart data={charts.age} />
 			</div>
+
+			<Tabs defaultValue="ethnicity" className="w-full h-full">
+				<TabsList>
+					<TabsTrigger value="ethnicity">Ethnicity</TabsTrigger>
+					<TabsTrigger value="emotion">Emotion</TabsTrigger>
+				</TabsList>
+
+				<TabsContent value="ethnicity">
+					<div className="grid grid-cols-6 h-80">
+						<EthnicityChart />
+					</div>
+				</TabsContent>
+
+				<TabsContent value="emotion">Not implemented.</TabsContent>
+			</Tabs>
 		</div>
 	)
 }

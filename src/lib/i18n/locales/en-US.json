@@ -81,7 +81,13 @@
 				"age": {
 					"title": "Distribution by age group",
 					"subtitle": "Number of detections grouped by estimated age.",
-					"passages": "Passages"
+					"passages": "Passages",
+					"views": {
+						"label": "View",
+						"select": "Select view",
+						"default": "Default",
+						"by_gender": "By gender"
+					}
 				}
 			}
 		},

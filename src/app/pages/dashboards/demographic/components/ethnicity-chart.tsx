@@ -1,33 +1,31 @@
-import { CartesianGrid, LabelList, Line, LineChart } from 'recharts'
+import { Pie, PieChart } from 'recharts'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
 	ChartContainer,
+	ChartLegend,
+	ChartLegendContent,
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
 
-type EthnicityDTO = 'CAUCASIAN' | 'BLACK' | 'EAST_INDIAN' | 'UNKNOWN'
+type EthnicityOptions = 'caucasian' | 'black' | 'east_indian' | 'unknown'
 
 interface ChartItem {
-	ethnicity: EthnicityDTO
+	ethnicity: EthnicityOptions
 	detections: number
 	fill: string
 }
 
 const chartData: ChartItem[] = [
-	{ ethnicity: 'CAUCASIAN', detections: 275, fill: 'var(--color-caucasian)' },
-	{ ethnicity: 'BLACK', detections: 200, fill: 'var(--color-black)' },
-	{ ethnicity: 'EAST_INDIAN', detections: 187, fill: 'var(--color-east-indian)' },
-	{ ethnicity: 'UNKNOWN', detections: 90, fill: 'var(--color-unknown)' },
+	{ ethnicity: 'caucasian', detections: 275, fill: 'var(--color-caucasian)' },
+	{ ethnicity: 'black', detections: 200, fill: 'var(--color-black)' },
+	{ ethnicity: 'east_indian', detections: 187, fill: 'var(--color-east_indian)' },
+	{ ethnicity: 'unknown', detections: 90, fill: 'var(--color-unknown)' },
 ]
 
 const chartConfig = {
-	detections: {
-		label: 'Detecções',
-		color: 'var(--chart-2)',
-	},
 	caucasian: {
 		label: 'Caucasiana',
 		color: 'var(--chart-1)',
@@ -46,13 +44,6 @@ const chartConfig = {
 	},
 } satisfies ChartConfig
 
-const ethnicityConfigKeyMap: Record<EthnicityDTO, keyof typeof chartConfig> = {
-	CAUCASIAN: 'caucasian',
-	BLACK: 'black',
-	EAST_INDIAN: 'east_indian',
-	UNKNOWN: 'unknown',
-}
-
 export function EthnicityChart() {
 	return (
 		<Card className="flex flex-col col-span-2 min-h-0 overflow-hidden">
@@ -63,48 +54,46 @@ export function EthnicityChart() {
 
 			<CardContent className="min-h-0 flex-1">
 				<ChartContainer config={chartConfig} className="h-full min-h-0 w-full">
-					<LineChart
-						accessibilityLayer
-						data={chartData}
-						margin={{
-							top: 24,
-							left: 30,
-							right: 24,
-						}}
-					>
-						<CartesianGrid vertical={false} />
-
+					<PieChart>
 						<ChartTooltip
 							cursor={false}
-							content={<ChartTooltipContent indicator="line" nameKey="detections" hideLabel />}
+							content={<ChartTooltipContent nameKey="ethnicity" hideLabel />}
 						/>
 
-						<Line
+						<Pie
+							data={chartData}
 							dataKey="detections"
-							type="natural"
-							stroke="var(--color-detections)"
-							strokeWidth={2}
-							dot={{
-								fill: 'var(--color-detections)',
+							nameKey="ethnicity"
+							labelLine={false}
+							label={({ payload, ...props }) => {
+								return (
+								<text
+									cx={props.cx}
+									cy={props.cy}
+									x={props.x}
+									y={props.y}
+									textAnchor={props.textAnchor}
+									dominantBaseline={props.dominantBaseline}
+									fill="var(--foreground)"
+								>
+									{payload.detections}
+								</text>
+								)
 							}}
-							activeDot={{
-								r: 6,
-							}}
-						>
-							<LabelList
-								position="top"
-								offset={12}
-								className="fill-foreground"
-								fontSize={12}
-								dataKey="ethnicity"
-								formatter={(value: EthnicityDTO) => {
-									const configKey = ethnicityConfigKeyMap[value]
+							innerRadius="50%"
+							outerRadius="75%"
+							paddingAngle={3}
+							strokeWidth={0}
+						/>
 
-									return chartConfig[configKey]?.label
-								}}
-							/>
-						</Line>
-					</LineChart>
+						<ChartLegend
+							layout="vertical"
+							verticalAlign="bottom"
+							align="left"
+							className="flex-col items-start gap-2"
+							content={<ChartLegendContent nameKey="ethnicity" />}
+						/>
+					</PieChart>
 				</ChartContainer>
 			</CardContent>
 		</Card>

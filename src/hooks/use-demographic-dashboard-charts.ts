@@ -6,7 +6,9 @@ import { getLocaleModules } from '@/utils/get-locale-modules'
 
 interface AgeChartItem {
 	age: string
-	passages: number
+	female: number
+	male: number
+	total: number
 }
 
 interface GenderChartItem {
@@ -66,7 +68,9 @@ export function useDemographicDashboardCharts(
 	return useMemo(() => {
 		const age = ageRanges.map(({ label }) => ({
 			age: label,
-			passages: 0,
+			female: 0,
+			male: 0,
+			total: 0,
 		}))
 		const passagesByHour = new Map<number, Omit<GenderChartItem, 'label'>>()
 		const passagesByDay = new Map<string, Omit<GenderChartItem, 'label'>>()
@@ -80,7 +84,15 @@ export function useDemographicDashboardCharts(
 				)
 
 				if (rangeIndex >= 0) {
-					age[rangeIndex].passages += 1
+					age[rangeIndex].total += 1
+
+					if (detection.demographics.gender === 'MALE') {
+						age[rangeIndex].male += 1
+					}
+
+					if (detection.demographics.gender === 'FEMALE') {
+						age[rangeIndex].female += 1
+					}
 				}
 			}
 

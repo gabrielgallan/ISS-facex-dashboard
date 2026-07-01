@@ -31,7 +31,9 @@ export const description = 'A stacked bar chart with a legend'
 
 interface ChartItem {
 	age: string
-	passages: number
+	female: number
+	male: number
+	total: number
 }
 
 interface PassagesByAgeChartProps {
@@ -44,11 +46,11 @@ function getHighestPassagesIndex(data: ChartItem[]) {
 	}
 
 	return data.reduce((highestIndex, currentItem, currentIndex, array) => {
-		return currentItem.passages > array[highestIndex].passages ? currentIndex : highestIndex
+		return currentItem.total > array[highestIndex].total ? currentIndex : highestIndex
 	}, 0)
 }
 
-type ChartView = 'default' | 'by_genders'
+type ChartView = 'default' | 'by_gender'
 
 export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 	const { t } = useTranslation()
@@ -57,9 +59,17 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 	const [view, setView] = useState<ChartView>('default')
 
 	const chartConfig = {
-		passages: {
+		total: {
 			label: t('dashboards.demographic.charts.age.passages'),
 			color: 'var(--primary)',
+		},
+		male: {
+			label: t('dashboards.demographic.charts.gender.male'),
+			color: '#0370ec',
+		},
+		female: {
+			label: t('dashboards.demographic.charts.gender.female'),
+			color: '#f43f5e',
 		},
 	} satisfies ChartConfig
 
@@ -74,17 +84,21 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 				<div>
 					<Select value={view} onValueChange={(value) => setView(value as ChartView)}>
 						<SelectTrigger className="hidden w-42 sm:ml-auto sm:flex">
-							<SelectValue placeholder="Selecione a view" />
+							<SelectValue placeholder={t('dashboards.demographic.charts.age.views.select')} />
 						</SelectTrigger>
 
 						<SelectContent className="border">
 							<SelectGroup>
-								<SelectLabel>View</SelectLabel>
+								<SelectLabel>{t('dashboards.demographic.charts.age.views.label')}</SelectLabel>
 								<SelectSeparator />
 
-								<SelectItem value="default">Default</SelectItem>
+								<SelectItem value="default">
+									{t('dashboards.demographic.charts.age.views.default')}
+								</SelectItem>
 
-								<SelectItem value="by_gender">By gender</SelectItem>
+								<SelectItem value="by_gender">
+									{t('dashboards.demographic.charts.age.views.by_gender')}
+								</SelectItem>
 							</SelectGroup>
 						</SelectContent>
 					</Select>
@@ -107,26 +121,18 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 
 						{view === 'default' && (
 							<Bar
-								dataKey="passages"
-								fill="var(--color-passages)"
+								dataKey="total"
+								fill="var(--color-total)"
 								shape={({ index, ...props }: BarShapeProps) =>
 									index === activeIndex ? (
 										<Rectangle
 											{...props}
-											fill="var(--color-passages)"
+											fill="var(--color-total)"
 											fillOpacity={1}
-											stroke="var(--foreground)"
-											strokeWidth={2}
-											strokeDasharray={4}
-											radius={8}
+											radius={4}
 										/>
 									) : (
-										<Rectangle
-											{...props}
-											fill="var(--color-passages)"
-											fillOpacity={0.45}
-											radius={8}
-										/>
+										<Rectangle {...props} fill="var(--color-total)" fillOpacity={0.45} radius={4} />
 									)
 								}
 							>
@@ -134,7 +140,18 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 							</Bar>
 						)}
 
-						{view === 'by_genders' && <></>}
+						{view === 'by_gender' && (
+							<>
+								<Bar dataKey="male" stackId="age" fill="var(--color-male)" radius={[0, 0, 4, 4]} />
+
+								<Bar
+									dataKey="female"
+									stackId="age"
+									fill="var(--color-female)"
+									radius={[4, 4, 0, 0]}
+								/>
+							</>
+						)}
 					</BarChart>
 				</ChartContainer>
 			</CardContent>

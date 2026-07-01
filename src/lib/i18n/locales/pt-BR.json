@@ -81,7 +81,13 @@
 				"age": {
 					"title": "Distribuição por faixa etária",
 					"subtitle": "Quantidade de detecções agrupadas por idade estimada.",
-					"passages": "Passagens"
+					"passages": "Passagens",
+					"views": {
+						"label": "Visualização",
+						"select": "Selecionar visualização",
+						"default": "Padrão",
+						"by_gender": "Por gênero"
+					}
 				}
 			}
 		},
