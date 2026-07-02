@@ -1,26 +1,26 @@
 import { useQuery } from '@tanstack/react-query'
 import { endOfDay, format, parseISO, startOfDay } from 'date-fns'
-import { Download } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router-dom'
-import { toast } from 'sonner'
 import { listDetections } from '@/api/facex/list-detections'
 import { getCameras } from '@/api/server/get-cameras'
 import { DashboardFilters } from '@/components/dashboard-filters'
 import { CardSkeleton } from '@/components/skeletons/card-skeleton'
-import { Button } from '@/components/ui/button'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useDemographicDashboardCards } from '@/hooks/use-demographic-dashboard-cards'
-import { useDemographicDashboardCharts } from '@/hooks/use-demographic-dashboard-charts'
 import { formatDashboardDateRange } from '@/utils/format-dashboard-date-range'
 import { DashboardViewToggle } from '../../../../components/dashboard-view-toggle'
 import { ConfidenceCard } from './components/confidence-card'
 import { DetectionsAmountCard } from './components/detections-amount-card'
+import { EmotionChart } from './components/emotion-chart'
+import { EmotionTable } from './components/emotion-table'
 import { EthnicityChart } from './components/ethnicity-chart'
+import { EthnicityTable } from './components/ethnicity-table'
 import { FemaleAmountCard } from './components/female-amout-card'
 import { MaleAmountCard } from './components/male-amount-card'
 import { PassagesByAgeChart } from './components/passages-by-age-chart'
 import { PassagesByGenderChart } from './components/passages-by-gender-chart'
+import { chartMock } from './dashboard.mock'
 
 export type DashboardViews = 'daily' | 'monthly' | 'weekly'
 
@@ -75,30 +75,16 @@ export function DemographicDashboardPage() {
 
 	const { cards } = useDemographicDashboardCards(result?.detections)
 
-	const { charts } = useDemographicDashboardCharts(result?.detections, view, {
-		startDate: startDateISO,
-		endDate: endDateISO,
-	})
-
-	function handleDownloadReport() {
-		toast('Feature not implemented yet!', { position: 'top-right' })
-	}
-
 	return (
 		<div className="flex flex-col gap-4 w-full p-4">
 			<DashboardViewToggle />
 
-			<div className="flex justify-between">
+			<div>
 				{view === 'daily' && <DashboardFilters hasDayPicker isLoading={isLoading} />}
 
 				{view === 'weekly' && <DashboardFilters isLoading={isLoading} />}
 
 				{view === 'monthly' && <DashboardFilters isLoading={isLoading} />}
-
-				<Button onClick={handleDownloadReport} variant="secondary">
-					<Download className="size-4" />
-					{t('dashboards.buttons.download_report')}
-				</Button>
 			</div>
 
 			<div className="grid gap-4 md:grid-cols-4">
@@ -119,24 +105,33 @@ export function DemographicDashboardPage() {
 				)}
 			</div>
 
-			<div className="grid gap-4 md:grid-cols-9 h-100">
-				<PassagesByGenderChart data={charts.gender} />
-				<PassagesByAgeChart data={charts.age} />
+			<div className="grid gap-4 md:grid-cols-9 md:h-120">
+				<PassagesByGenderChart data={chartMock.gender} />
+
+				<PassagesByAgeChart data={chartMock.age} />
 			</div>
 
 			<Tabs defaultValue="ethnicity" className="w-full h-full">
 				<TabsList>
-					<TabsTrigger value="ethnicity">Ethnicity</TabsTrigger>
-					<TabsTrigger value="emotion">Emotion</TabsTrigger>
+					<TabsTrigger value="ethnicity">{t('dashboards.demographic.tabs.ethnicity')}</TabsTrigger>
+					<TabsTrigger value="emotion">{t('dashboards.demographic.tabs.emotions')}</TabsTrigger>
 				</TabsList>
 
 				<TabsContent value="ethnicity">
-					<div className="grid grid-cols-6 h-80">
+					<div className="grid gap-4 md:h-80 md:grid-cols-8">
 						<EthnicityChart />
+
+						<EthnicityTable />
 					</div>
 				</TabsContent>
 
-				<TabsContent value="emotion">Not implemented.</TabsContent>
+				<TabsContent value="emotion">
+					<div className="grid gap-4 md:h-80 md:grid-cols-8">
+						<EmotionChart />
+
+						<EmotionTable />
+					</div>
+				</TabsContent>
 			</Tabs>
 		</div>
 	)

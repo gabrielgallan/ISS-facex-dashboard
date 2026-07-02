@@ -52,7 +52,7 @@ export function PassagesByGenderChart({ data }: PassagesByGenderChartProps) {
 	const shouldShowFemale = genderFilter === 'all' || genderFilter === 'female'
 
 	return (
-		<Card className="flex col-span-5 min-h-0 flex-col overflow-hidden">
+		<Card className="flex col-span-6 min-h-0 flex-col overflow-hidden">
 			<CardHeader className="flex justify-between">
 				<div>
 					<CardTitle>{t('dashboards.demographic.charts.gender.title')}</CardTitle>

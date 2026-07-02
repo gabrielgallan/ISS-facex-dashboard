@@ -74,7 +74,7 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 	} satisfies ChartConfig
 
 	return (
-		<Card className="flex md:col-span-4 min-h-0 flex-col overflow-hidden">
+		<Card className="flex col-span-3 min-h-0 flex-col overflow-hidden">
 			<CardHeader className="flex justify-between">
 				<div>
 					<CardTitle>{t('dashboards.demographic.charts.age.title')}</CardTitle>
@@ -125,12 +125,7 @@ export function PassagesByAgeChart({ data }: PassagesByAgeChartProps) {
 								fill="var(--color-total)"
 								shape={({ index, ...props }: BarShapeProps) =>
 									index === activeIndex ? (
-										<Rectangle
-											{...props}
-											fill="var(--color-total)"
-											fillOpacity={1}
-											radius={4}
-										/>
+										<Rectangle {...props} fill="var(--color-total)" fillOpacity={1} radius={4} />
 									) : (
 										<Rectangle {...props} fill="var(--color-total)" fillOpacity={0.45} radius={4} />
 									)

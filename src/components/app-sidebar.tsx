@@ -1,4 +1,4 @@
-import { ChartPie, History, Radar, TrendingUp } from 'lucide-react'
+import { ChartArea, ChartPie, History, Radar } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { NavLink, useLocation } from 'react-router-dom'
 import { LanguageToggle } from '@/components/language-toggle'
@@ -44,7 +44,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 							'group-data-[collapsible=icon]:group-focus-within/logo-trigger:opacity-0'
 						)}
 					>
-						<TrendingUp className="size-4" />
+						<ChartArea className="size-4" />
 					</div>
 
 					<span className="truncate text-sm font-semibold group-data-[collapsible=icon]:hidden">

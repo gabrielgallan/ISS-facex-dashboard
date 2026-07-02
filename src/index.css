@@ -55,6 +55,8 @@
   --shadow-2xl: 0px 4px 10px 0px hsl(0, 0%, 0% / 0.25);
   --tracking-normal: -0.015em;
   --spacing: 0.25rem;
+
+  --gray: oklch(0.5547 0.0407 257.4404)
 }
 
 .dark {
@@ -108,6 +110,8 @@
   --shadow-lg: 0px 8px 15px 0px hsl(0, 0%, 0% / 0.50), 0px 4px 6px -1px hsl(0, 0%, 0% / 0.50);
   --shadow-xl: 0px 8px 15px 0px hsl(0, 0%, 0% / 0.50), 0px 8px 10px -1px hsl(0, 0%, 0% / 0.50);
   --shadow-2xl: 0px 8px 15px 0px hsl(0, 0%, 0% / 1.25);
+
+  --gray: oklch(0.5547 0.0407 257.4404)
 }
 
 @theme inline {
@@ -177,5 +181,10 @@
   body {
     @apply bg-background text-foreground;
     letter-spacing: var(--tracking-normal);
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none; /* Chrome/Electron */
   }
 }

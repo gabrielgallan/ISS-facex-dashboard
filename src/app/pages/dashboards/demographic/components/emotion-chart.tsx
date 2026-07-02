@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import { Pie, PieChart } from 'recharts'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	type ChartConfig,
 	ChartContainer,
@@ -9,26 +9,38 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from '@/components/ui/chart'
-import { ethnicityBreakdownMock } from './demographic-breakdown.mock'
+import { emotionBreakdownMock } from './demographic-breakdown.mock'
 
-export function EthnicityChart() {
+export function EmotionChart() {
 	const { t } = useTranslation()
 
 	const chartConfig = {
-		caucasian: {
-			label: t('detections.labels.ethnicity.caucasian'),
+		neutral: {
+			label: t('detections.labels.emotion.neutral'),
 			color: 'var(--chart-1)',
 		},
-		black: {
-			label: t('detections.labels.ethnicity.black'),
+		happiness: {
+			label: t('detections.labels.emotion.happiness'),
 			color: 'var(--chart-2)',
 		},
-		east_indian: {
-			label: t('detections.labels.ethnicity.east_indian'),
+		surprise: {
+			label: t('detections.labels.emotion.surprise'),
 			color: 'var(--chart-3)',
 		},
+		sadness: {
+			label: t('detections.labels.emotion.sadness'),
+			color: 'var(--chart-4)',
+		},
+		anger: {
+			label: t('detections.labels.emotion.anger'),
+			color: 'var(--chart-5)',
+		},
+		fear: {
+			label: t('detections.labels.emotion.fear'),
+			color: '#8b5cf6',
+		},
 		unknown: {
-			label: t('detections.labels.ethnicity.unknown'),
+			label: t('detections.labels.emotion.unknown'),
 			color: 'var(--muted-foreground)',
 		},
 	} satisfies ChartConfig
@@ -36,7 +48,8 @@ export function EthnicityChart() {
 	return (
 		<Card className="flex min-h-0 flex-col overflow-hidden lg:col-span-3">
 			<CardHeader>
-				<CardTitle>{t('dashboards.demographic.charts.ethnicity.title')}</CardTitle>
+				<CardTitle>{t('dashboards.demographic.charts.emotion.title')}</CardTitle>
+				<CardDescription>{t('dashboards.demographic.charts.emotion.subtitle')}</CardDescription>
 			</CardHeader>
 
 			<CardContent className="min-h-0 flex-1">
@@ -48,7 +61,7 @@ export function EthnicityChart() {
 						/>
 
 						<Pie
-							data={ethnicityBreakdownMock}
+							data={emotionBreakdownMock}
 							dataKey="detections"
 							nameKey="key"
 							labelLine={false}
@@ -65,8 +78,8 @@ export function EthnicityChart() {
 									{payload.detections}
 								</text>
 							)}
-							innerRadius="50%"
-							outerRadius="75%"
+							innerRadius="55%"
+							outerRadius="78%"
 							paddingAngle={3}
 							strokeWidth={0}
 						/>
@@ -75,7 +88,7 @@ export function EthnicityChart() {
 							layout="vertical"
 							verticalAlign="bottom"
 							align="left"
-							className="hidden md:flex flex-col items-start gap-2"
+							className="flex-col items-start gap-2"
 							content={<ChartLegendContent nameKey="key" />}
 						/>
 					</PieChart>

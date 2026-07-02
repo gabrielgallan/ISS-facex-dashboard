@@ -37,6 +37,19 @@
 			}
 		},
 		"demographic": {
+			"tabs": {
+				"ethnicity": "Etnia",
+				"emotions": "Emoções"
+			},
+			"breakdown_table": {
+				"columns": {
+					"ethnicity": "Etnia",
+					"emotion": "Emoção",
+					"passages": "Passagens",
+					"percent_of_total": "% do total",
+					"average_confidence": "Confiança média"
+				}
+			},
 			"cards": {
 				"female": {
 					"title": "Total de mulheres",
@@ -88,6 +101,13 @@
 						"default": "Padrão",
 						"by_gender": "Por gênero"
 					}
+				},
+				"ethnicity": {
+					"title": "Detecções por etnia"
+				},
+				"emotion": {
+					"title": "Detecções por emoção",
+					"subtitle": "Distribuição estimada do estado emocional."
 				}
 			}
 		},
